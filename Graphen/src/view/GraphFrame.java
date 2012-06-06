@@ -6,8 +6,8 @@ import frames.SimpleFrame;
 public class GraphFrame extends SimpleFrame {
 	
 	public GraphFrame() {
-		GraphPanel graphPanel = new GraphPanel();
-		add(graphPanel);
+		HauptPanel hauptPanel = new HauptPanel();
+		add(hauptPanel);
 	}
 	
 	
