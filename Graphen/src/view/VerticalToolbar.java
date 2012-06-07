@@ -10,7 +10,8 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class VerticalToolbar extends JToolBar {
-
+	
+	private String actionselect = "none";	
 	private JToggleButton selectToggleButton;
 	private JToggleButton nodeToggleButton;
 	private JToggleButton edgeToggleButton;
@@ -65,14 +66,18 @@ public class VerticalToolbar extends JToolBar {
 	
 	
 	private void selectToggleButtonActionPerformed(ActionEvent e) {
-		// TODO add your code here
+		actionselect = "select";
 	}
 
 	private void nodeToggleButtonActionPerformed(ActionEvent e) {
-		// TODO add your code here
+		actionselect = "node";
 	}
 
 	private void edgeToggleButtonActionPerformed(ActionEvent e) {
-		// TODO add your code here
+		actionselect = "node";
+	}
+	
+	public String getactionselect() {
+		return actionselect;
 	}
 }
