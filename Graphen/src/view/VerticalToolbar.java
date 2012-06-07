@@ -74,7 +74,7 @@ public class VerticalToolbar extends JToolBar {
 	}
 
 	private void edgeToggleButtonActionPerformed(ActionEvent e) {
-		actionselect = "node";
+		actionselect = "edge";
 	}
 	
 	public String getactionselect() {
