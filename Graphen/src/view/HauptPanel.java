@@ -4,9 +4,10 @@
 
 package view;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+import javax.swing.JPanel;
 
 /**
  * @author Fernando Luwinda

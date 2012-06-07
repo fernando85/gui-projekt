@@ -1,12 +1,12 @@
 package model;
 
 import java.awt.Point;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class Node extends Point {
 
-	public static final int RADIUS = 5;
-	
+	private List<Edge> edges;
 	
 	public Node() {
 		super();
@@ -20,8 +20,19 @@ public class Node extends Point {
 		super(p);
 	}
 
+	public List<Edge> getEdges() {
+		return edges;
+	}
 
+	public void setEdges(List<Edge> edges) {
+		this.edges = edges;
+	}
 
+	public void addEdge(Edge edge) {
+		edges.add(edge);
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "(" + x + "," + y + ")";
