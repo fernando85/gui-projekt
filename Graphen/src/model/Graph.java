@@ -1,27 +1,27 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Graph {
 
-	private List<Node> nodes;
+	private Map<Integer, Node> nodes;
 	private Set<Edge> edges;
 	
 	public Graph() {
-		nodes = new ArrayList<Node>();
+		nodes = new HashMap<Integer, Node>();
 		edges = new HashSet<Edge>();
 	}
 
 
-	public List<Node> getNodes() {
+	public Map<Integer, Node> getNodes() {
 		return nodes;
 	}
 
 
-	public void setNodes(List<Node> nodes) {
+	public void setNodes(Map<Integer, Node> nodes) {
 		this.nodes = nodes;
 	}
 
@@ -36,11 +36,14 @@ public class Graph {
 	}
 
 	public void addNode(Node node) {
-		nodes.add(node);
+		nodes.put(nodes.size() + 1, node);
 	}
 	
 	public void addEdge(Edge edge) {
 		edges.add(edge);
 	}
 	
+	public int getNumberOfNodes() {
+		return nodes.size();
+	}
 }

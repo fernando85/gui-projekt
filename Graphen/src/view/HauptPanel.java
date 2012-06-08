@@ -29,7 +29,7 @@ public class HauptPanel extends JPanel {
 		graphPanel = new GraphPanel();
 		hToolbar = new HorizontaleToolbar();
 		vToolbar = new VerticalToolbar();
-
+		
 		setLayout(new BorderLayout());
 
 		//---- graphPanel ----

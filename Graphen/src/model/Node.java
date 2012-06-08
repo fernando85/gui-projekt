@@ -1,30 +1,65 @@
 package model;
 
-import java.awt.Point;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-@SuppressWarnings("serial")
-public class Node extends Point {
 
-	private List<Edge> edges;
+/**
+ * Diese Klasse representiert ein Knoten.
+ * Ein Knoten hat 
+ * <li> immer eine eindeutige Nummer,
+ * <li> eine X-Position,
+ * <li> eine Y-Position und
+ * <li> 0 bis n Kanten, die voneinnander unterschiedlich sind.
+ */
+public class Node {
+
+	private int number = 0;
+	private int x = 0;
+	private int y = 0;
+	
+	private Set<Edge> edges = new HashSet<Edge>();;
 	
 	public Node() {
-		super();
+		
 	}
 
-	public Node(int x, int y) {
-		super(x, y);
+	public Node(int number, int x, int y) {
+		this.number = number;
+		this.x = x;
+		this.y = y;
 	}
 
-	public Node(Point p) {
-		super(p);
+
+	public int getNumber() {
+		return number;
 	}
 
-	public List<Edge> getEdges() {
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public Set<Edge> getEdges() {
 		return edges;
 	}
 
-	public void setEdges(List<Edge> edges) {
+	public void setEdges(Set<Edge> edges) {
 		this.edges = edges;
 	}
 
@@ -35,6 +70,23 @@ public class Node extends Point {
 	
 	@Override
 	public String toString() {
-		return "(" + x + "," + y + ")";
+		return number + " = (" + x + "," + y + ")";
 	}
+	
+	
+	/** 
+	 * Zwei Knoten sind unterschiedlich, wenn sie 
+	 * verschiedene {@link #number} haben.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Node) {
+			Node other = (Node) obj;
+			
+			return number == other.number;
+		}
+		
+		return super.equals(obj);
+	}
+	
 }
