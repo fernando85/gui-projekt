@@ -7,3 +7,5 @@ Wir sollen eine eigene klasse machen die den ganzen grafischen teil macht da die
 elemente auskommen soll.
 zum graphen hat ich schon eine edge, Vertex und Graph klasse geschrieben die kann ich ja mal hoch laden und du 
 guckst dir die an.
+
+nochwas, hab jetzt dem SimpleFrame noch eine ManuBar eingefügt kann die Datei aber nicht ändern (Rechte?)
