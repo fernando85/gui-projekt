@@ -16,7 +16,7 @@ public class GraphFrame extends SimpleFrame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new GraphFrame().showIt("Graph", 500, 400, 200, 200);
+		new GraphFrame().showIt( 500, 400, 200, 200);
 	}
 
 }
