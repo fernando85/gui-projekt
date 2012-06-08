@@ -30,7 +30,7 @@ public class SimpleFrame extends JFrame implements ActionListener {
 	}
 	public SimpleFrame() {
 		super("Eulerkreis");
-		setSize(200, 200);
+		setSize(500, 500);
 		setLocation(200, 200);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
