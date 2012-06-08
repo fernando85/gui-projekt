@@ -9,6 +9,8 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
+import model.Graph;
+
 /**
  * @author Fernando Luwinda
  */
@@ -27,7 +29,7 @@ public class HauptPanel extends JPanel {
 
 	private void initComponents() {
 		graphPanel = new GraphPanel();
-		hToolbar = new HorizontaleToolbar();
+		hToolbar = new HorizontaleToolbar(graphPanel.getGraph());
 		vToolbar = new VerticalToolbar();
 		
 		setLayout(new BorderLayout());

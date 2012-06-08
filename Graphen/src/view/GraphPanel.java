@@ -5,9 +5,12 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import model.Graph;
+
 @SuppressWarnings("serial")
 public class GraphPanel extends JPanel {
 
+	private Graph graph = new Graph();
 	
 	public GraphPanel() {
 		setBackground(Color.WHITE);
@@ -18,6 +21,11 @@ public class GraphPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+	}
+
+
+	public Graph getGraph() {
+		return graph;
 	}
 	
 }
