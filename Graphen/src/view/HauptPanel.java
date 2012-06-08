@@ -20,6 +20,7 @@ public class HauptPanel extends JPanel {
 	private GraphPanel graphPanel;
 	private HorizontaleToolbar hToolbar;
 	private VerticalToolbar vToolbar;
+	private WegPanel wegPanel;
 	
 	
 	public HauptPanel() {
@@ -31,6 +32,7 @@ public class HauptPanel extends JPanel {
 		graphPanel = new GraphPanel();
 		hToolbar = new HorizontaleToolbar(graphPanel.getGraph());
 		vToolbar = new VerticalToolbar();
+		wegPanel = new WegPanel();
 		
 		setLayout(new BorderLayout());
 
@@ -39,6 +41,7 @@ public class HauptPanel extends JPanel {
 		add(graphPanel, BorderLayout.CENTER);
 		add(hToolbar, BorderLayout.NORTH);
 		add(vToolbar, BorderLayout.WEST);
+		add(wegPanel, BorderLayout.SOUTH);
 		
 	}
 }
