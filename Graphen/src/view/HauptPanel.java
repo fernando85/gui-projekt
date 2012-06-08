@@ -20,7 +20,7 @@ public class HauptPanel extends JPanel {
 	private GraphPanel graphPanel;
 	private HorizontaleToolbar hToolbar;
 	private VerticalToolbar vToolbar;
-	private WegPanel wegPanel;
+	private WegPanel wegPanel;  //fuer eulerweg/kreis anzeige
 	
 	
 	public HauptPanel() {
