@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import model.Edge;
 import model.Graph;
 import model.Node;
 
@@ -12,6 +13,8 @@ import model.Node;
 public class GraphPanel extends JPanel {
 
 	private Graph graph = new Graph();
+	
+	private Node node4Edge;
 	
 	public GraphPanel() {
 		setBackground(Color.WHITE);
@@ -72,11 +75,23 @@ public class GraphPanel extends JPanel {
 	 * Diese Methode wird aufgerufen, wenn der Select-Button
 	 * geklickt wurde.
 	 */
-	public void select() {
-		// TODO
-		System.out.println("select(): Not implemented yet!");
+	public void select(int x, int y) {
+		Node selectedNode = graph.getNode(x, y);
+		if (selectedNode != null) {
+			// TODO: Selektierer Knoten in GUI erkennbar machen 
+			// (z.B. durch andere Farbe oder durch dickere Raender)
+		}
+		else {
+			Edge selectedEdge = graph.getEdge(x, y);
+			if (selectedEdge != null) {
+				// TODO: Selektiere Kante in GUI erkennbar machen
+				// (z.B. durch andere Farbe oder durch dickere Raender)
+			}
+		}
+		
 		repaint();
 	}
+	
 	
 	/**
 	 * Ein Knoten in der Position x und y wird erzeugt und 
