@@ -3,16 +3,14 @@ package control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import view.GraphPanel;
-
-import model.Graph;
+import view.HauptPanel;
 
 public class GraphActionListener implements ActionListener {
 
-	private GraphPanel graphPanel;
+	private HauptPanel hauptPanel;
 	
-	public GraphActionListener(GraphPanel graphPanel) {
-		this.graphPanel = graphPanel;
+	public GraphActionListener(HauptPanel hauptPanel) {
+		this.hauptPanel = hauptPanel;
 	}
 	
 	@Override
@@ -20,25 +18,16 @@ public class GraphActionListener implements ActionListener {
 		GraphActionCommand command = GraphActionCommand.valueOf(e.getActionCommand());
 		switch (command) {
 		case EMPTY:
-			graphPanel.empty();
+			hauptPanel.empty();
 			break;
 		case UNDO:
-			graphPanel.undo();
+			hauptPanel.undo();
 			break;
 		case REDO:
-			graphPanel.redo();
-			break;
-		case NODE:
-	
-			break;
-		case EDGE:
-			
+			hauptPanel.redo();
 			break;
 		case CHECK:
-			graphPanel.check();
-			break;
-		case SELECT:
-			
+			hauptPanel.check();
 			break;
 		default:
 			break;

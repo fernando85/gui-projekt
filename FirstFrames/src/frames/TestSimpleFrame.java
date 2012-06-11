@@ -17,7 +17,7 @@ public class TestSimpleFrame {
 		SimpleFrame s_graph = new SimpleFrame();
 		s_graph.add(new SimpleGraphicsPanel());
 		
-		s_graph.showIt("Graphikfenster", 500, 500, 0, 0);
+		s_graph.showIt(500, 500, 0, 0);
 	}
 
 }

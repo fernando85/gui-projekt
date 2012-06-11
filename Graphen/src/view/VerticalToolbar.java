@@ -1,22 +1,26 @@
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import control.GraphActionCommand;
+import control.GraphActionListener;
+
 @SuppressWarnings("serial")
 public class VerticalToolbar extends JToolBar {
 	
-	private String actionselect = "none";	
+	private GraphActionListener actionListener;
+	
+	private String actionSelect = "none";	
 	private JToggleButton selectToggleButton;
 	private JToggleButton nodeToggleButton;
 	private JToggleButton edgeToggleButton;
 	
-	public VerticalToolbar() {
+	public VerticalToolbar(HauptPanel hauptPanel) {
+		actionListener = new GraphActionListener(hauptPanel);
 		setOrientation(SwingConstants.VERTICAL);
 		initComponents();
 	}
@@ -27,15 +31,16 @@ public class VerticalToolbar extends JToolBar {
 		nodeToggleButton = new JToggleButton();
 		edgeToggleButton = new JToggleButton();
 		
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(selectToggleButton);
+		buttonGroup.add(nodeToggleButton);
+		buttonGroup.add(edgeToggleButton);
+		
 		//---- selectToggleButton ----
 		selectToggleButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/select_32.png")));
-		selectToggleButton.setToolTipText("Graphelemente ausw\u00e4hlen");
-		selectToggleButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				selectToggleButtonActionPerformed(e);
-			}
-		});
+		selectToggleButton.setToolTipText("Graphelemente auswaehlen");
+		selectToggleButton.setActionCommand(GraphActionCommand.SELECT.name());
+		selectToggleButton.addActionListener(actionListener);
 		add(selectToggleButton);
 		addSeparator();
 
@@ -43,41 +48,33 @@ public class VerticalToolbar extends JToolBar {
 		nodeToggleButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/node_32.png")));
 		nodeToggleButton.setVerticalAlignment(SwingConstants.TOP);
 		nodeToggleButton.setToolTipText("Knoten erstellen");
-		nodeToggleButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				nodeToggleButtonActionPerformed(e);
-			}
-		});
+		nodeToggleButton.setActionCommand(GraphActionCommand.NODE.name());
+		nodeToggleButton.addActionListener(actionListener);
 		add(nodeToggleButton);
 		addSeparator();
 
 		//---- edgeToggleButton ----
 		edgeToggleButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/edge_32.png")));
 		edgeToggleButton.setToolTipText("Kante erstellen.");
-		edgeToggleButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				edgeToggleButtonActionPerformed(e);
-			}
-		});
+		edgeToggleButton.setActionCommand(GraphActionCommand.EDGE.name());
+		edgeToggleButton.addActionListener(actionListener);
 		add(edgeToggleButton);
 	}
 	
 	
-	private void selectToggleButtonActionPerformed(ActionEvent e) {
-		actionselect = "select";
-	}
-
-	private void nodeToggleButtonActionPerformed(ActionEvent e) {
-		actionselect = "node";
-	}
-
-	private void edgeToggleButtonActionPerformed(ActionEvent e) {
-		actionselect = "edge";
+	public String getActionSelect() {
+		return actionSelect;
 	}
 	
-	public String getactionselect() {
-		return actionselect;
+	public boolean isSelectButtonSelected() {
+		return selectToggleButton.isSelected();
+	}
+	
+	public boolean isNodeButtonSelected() {
+		return nodeToggleButton.isSelected();
+	}
+	
+	public boolean isEdgeButtonSelected() {
+		return edgeToggleButton.isSelected();
 	}
 }

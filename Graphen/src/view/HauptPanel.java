@@ -18,7 +18,7 @@ public class HauptPanel extends JPanel {
 	private GraphPanel graphPanel;
 	private HorizontaleToolbar hToolbar;
 	private VerticalToolbar vToolbar;
-	//sprivate WegPanel wegPanel;  //fuer eulerweg/kreis anzeige
+	//private WegPanel wegPanel;  //fuer eulerweg/kreis anzeige
 	
 	
 	public HauptPanel() {
@@ -28,8 +28,8 @@ public class HauptPanel extends JPanel {
 
 	private void initComponents() {
 		graphPanel = new GraphPanel();
-		hToolbar = new HorizontaleToolbar(graphPanel);
-		vToolbar = new VerticalToolbar();
+		hToolbar = new HorizontaleToolbar(this);
+		vToolbar = new VerticalToolbar(this);
 		//wegPanel = new WegPanel();
 		
 		setLayout(new BorderLayout());
@@ -41,5 +41,55 @@ public class HauptPanel extends JPanel {
 		add(vToolbar, BorderLayout.WEST);
 		//add(wegPanel, BorderLayout.SOUTH);
 		
+	}
+	
+	
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Button 
+	 * zum Fordern einer neuen Seite geklickt wurde.
+	 */
+	public void empty() {
+		graphPanel.newSite();
+	}
+	
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Undo-Button
+	 * geklickt wurde.
+	 */
+	public void undo() {
+		graphPanel.undo();
+	}
+	
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Redo-Button
+	 * geklickt wurde.
+	 */
+	public void redo() {
+		graphPanel.redo();
+	}
+	
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Check-Button zum 
+	 * Ueberpruefen eines Eulerkreises/-weges geklickt wurde.
+	 */
+	public void check() {
+		graphPanel.check();
+	}
+	
+
+	public void mouseClicked(int x, int y) {
+		if (vToolbar.isSelectButtonSelected()) {
+			// TODO: Suche den Knoten oder die Kante heraus, 
+			// der/die in GUI gerade selektiert ist, oder
+			// liefert ein null zurueck, wenn nichts 
+			// selektiert ist.
+		}
+		else if (vToolbar.isNodeButtonSelected()) {
+			graphPanel.createNode(x, y);
+		}
+		else if (vToolbar.isEdgeButtonSelected()) {
+			// TODO: Speichere den ersten Knoten beim ersten Mausklick
+			// und auch den zweiten Knoten beim zweiten Mausklick
+		}
 	}
 }

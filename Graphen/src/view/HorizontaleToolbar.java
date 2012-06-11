@@ -1,14 +1,11 @@
 package view;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-import model.Graph;
 import control.GraphActionCommand;
 import control.GraphActionListener;
 
@@ -22,8 +19,8 @@ public class HorizontaleToolbar extends JToolBar {
 	private JButton redoButton;
 	private JButton checkButton;
 	
-	public HorizontaleToolbar(GraphPanel graphPanel) {
-		actionListener = new GraphActionListener(graphPanel);
+	public HorizontaleToolbar(HauptPanel hauptPanel) {
+		actionListener = new GraphActionListener(hauptPanel);
 		
 		setFloatable(false);
 		initComponents();

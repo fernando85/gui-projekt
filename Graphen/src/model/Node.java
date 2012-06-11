@@ -14,7 +14,9 @@ import java.util.Set;
  */
 public class Node {
 
-	private int number = 0;
+	private static int counter = 0;
+	
+	private int number;
 	private int x = 0;
 	private int y = 0;
 	
@@ -24,8 +26,8 @@ public class Node {
 		
 	}
 
-	public Node(int number, int x, int y) {
-		this.number = number;
+	public Node(int x, int y) {
+		this.number = ++counter;
 		this.x = x;
 		this.y = y;
 	}
