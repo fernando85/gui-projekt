@@ -27,5 +27,43 @@ public class GraphPanel extends JPanel {
 	public Graph getGraph() {
 		return graph;
 	}
+
+
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Empty-Button 
+	 * (zum Fordern einer neuen Seite) geklickt wurde.
+	 */
+	public void empty() {
+		graph = new Graph();
+		repaint();
+	}
 	
-}
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Undo-Button
+	 * geklickt wurde.
+	 */
+	public void undo() {
+		// TODO
+		
+		repaint();
+	}
+	
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Redo-Button
+	 * geklickt wurde.
+	 */
+	public void redo() {
+		// TODO
+		
+		repaint();
+	}
+	
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Check-Button zum 
+	 * Ueberpruefen eines Eulerkreises/-weges geklickt wurde.
+	 */
+	public void check() {
+		// TODO
+		
+	}
+ }

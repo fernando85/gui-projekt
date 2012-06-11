@@ -9,8 +9,6 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-import model.Graph;
-
 /**
  * @author Fernando Luwinda
  */
@@ -20,7 +18,7 @@ public class HauptPanel extends JPanel {
 	private GraphPanel graphPanel;
 	private HorizontaleToolbar hToolbar;
 	private VerticalToolbar vToolbar;
-	private WegPanel wegPanel;  //fuer eulerweg/kreis anzeige
+	//sprivate WegPanel wegPanel;  //fuer eulerweg/kreis anzeige
 	
 	
 	public HauptPanel() {
@@ -30,9 +28,9 @@ public class HauptPanel extends JPanel {
 
 	private void initComponents() {
 		graphPanel = new GraphPanel();
-		hToolbar = new HorizontaleToolbar(graphPanel.getGraph());
+		hToolbar = new HorizontaleToolbar(graphPanel);
 		vToolbar = new VerticalToolbar();
-		wegPanel = new WegPanel();
+		//wegPanel = new WegPanel();
 		
 		setLayout(new BorderLayout());
 
@@ -41,7 +39,7 @@ public class HauptPanel extends JPanel {
 		add(graphPanel, BorderLayout.CENTER);
 		add(hToolbar, BorderLayout.NORTH);
 		add(vToolbar, BorderLayout.WEST);
-		add(wegPanel, BorderLayout.SOUTH);
+		//add(wegPanel, BorderLayout.SOUTH);
 		
 	}
 }

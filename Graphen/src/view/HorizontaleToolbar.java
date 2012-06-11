@@ -15,7 +15,6 @@ import control.GraphActionListener;
 @SuppressWarnings("serial")
 public class HorizontaleToolbar extends JToolBar {
 
-	private Graph graph;
 	private GraphActionListener actionListener;
 	
 	private JButton emptyButton;
@@ -23,9 +22,8 @@ public class HorizontaleToolbar extends JToolBar {
 	private JButton redoButton;
 	private JButton checkButton;
 	
-	public HorizontaleToolbar(Graph graph) {
-		this.graph = graph;
-		actionListener = new GraphActionListener(graph);
+	public HorizontaleToolbar(GraphPanel graphPanel) {
+		actionListener = new GraphActionListener(graphPanel);
 		
 		setFloatable(false);
 		initComponents();
