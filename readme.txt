@@ -16,3 +16,5 @@ Was meinst Du mit Hochladen? readme.txt kannst Du doch Šndern und hochladen?
 
 Ach, jetzt wei§ ich, Du meinst eine neue Datei ja? Ich sehe Deinen WegPanel hier noch nicht. Du musst sie erstmal Aden, danach commiten, und zum Schluss pushen. Dann kann ich sie auch sehen und vom Repository holen.
 
+Ja, den graphischen Teil kommt in view-Ordner. Graph.java soll ohne GUI auskommen. Die Klasse soll ja nur das Model halten.
+
