@@ -18,3 +18,8 @@ Ach, jetzt weiß ich, Du meinst eine neue Datei ja? Ich sehe Deinen WegPanel hier
 
 Ja, den graphischen Teil kommt in view-Ordner. Graph.java soll ohne GUI auskommen. Die Klasse soll ja nur das Model halten.
 
+-------
+
+Hi, hab im Code wie ein bisschen TODOs geschrieben, die von Dir implementiert werden müssen: GraphPanel.select(), Graph.getNode(), Graph.getEdge().
+Fernando meinte, Du implementierst die Viehs. Ich weiß ja noch nicht, wie Du die Knoten und Kanten darstellen willst.
+
