@@ -3,7 +3,10 @@ package view;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import exception.SameNodesException;
 
 import model.Edge;
 import model.Graph;
@@ -14,7 +17,8 @@ public class GraphPanel extends JPanel {
 
 	private Graph graph = new Graph();
 	
-	private Node node4Edge;
+	private Node edgeNode1;
+	private Node edgeNode2;
 	
 	public GraphPanel() {
 		setBackground(Color.WHITE);
@@ -32,6 +36,31 @@ public class GraphPanel extends JPanel {
 		return graph;
 	}
 
+	
+	public Node getEdgeNode1() {
+		return edgeNode1;
+	}
+	
+	public Node getEdgeNode2() {
+		return edgeNode2;
+	}
+	
+	public void initEdgeNode1(int x, int y) {
+		edgeNode1 = graph.getNode(x, y);
+	}
+	
+	public void initEdgeNode2(int x, int y) {
+		edgeNode2 = graph.getNode(x, y);
+	}
+	
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Button "Auswaehlen"
+	 * oder "Knoten erstellen" in GUI gedrueckt wird.
+	 */
+	public void resetEdgeNodes() {
+		edgeNode1 = null;
+		edgeNode2 = null;
+	}
 
 	/**
 	 * Diese Methode wird aufgerufen, wenn der Button 
@@ -39,6 +68,7 @@ public class GraphPanel extends JPanel {
 	 */
 	public void newSite() {
 		graph = new Graph();
+		
 		repaint();
 	}
 	
@@ -47,8 +77,8 @@ public class GraphPanel extends JPanel {
 	 * geklickt wurde.
 	 */
 	public void undo() {
-		// TODO
-		System.out.println("undo(): Not implemented yet!");
+		graph.undo();
+		
 		repaint();
 	}
 	
@@ -99,9 +129,7 @@ public class GraphPanel extends JPanel {
 	 */
 	public void createNode(int x, int y) {
 		Node node = new Node(x, y);
-		if (node != null) {
-			graph.addNode(node);
-		}
+		graph.addNode(node);
 		
 		repaint();
 	}
@@ -110,9 +138,15 @@ public class GraphPanel extends JPanel {
 	 * Diese Methode wird aufgerufen, wenn der Button zum
 	 * Erzeugen einer neuen Kante geklickt wurde.
 	 */
-	public void createEdge(Node node1, Node node2) {
-		// TODO
-		System.out.println("createEdge(): Not implemented yet!");
+	public void createEdge() {
+		try {
+			Edge edge = new Edge(edgeNode1, edgeNode2);
+			graph.addEdge(edge);
+		} 
+		catch (SameNodesException e) {
+			JOptionPane.showMessageDialog(null, "Die beiden Knoten muessen unterschiedlich sein!");
+		}
+		
 		repaint();
 	}
  }

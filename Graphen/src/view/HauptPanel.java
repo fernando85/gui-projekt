@@ -9,8 +9,6 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-import model.Node;
-
 /**
  * @author Fernando Luwinda
  */
@@ -80,15 +78,28 @@ public class HauptPanel extends JPanel {
 	
 
 	public void mouseClicked(int x, int y) {
-		if (vToolbar.isSelectButtonSelected()) {
-			graphPanel.select(x, y);
-		}
-		else if (vToolbar.isNodeButtonSelected()) {
+		if (vToolbar.isNodeButtonSelected()) {
+			graphPanel.resetEdgeNodes();
+			
 			graphPanel.createNode(x, y);
 		}
 		else if (vToolbar.isEdgeButtonSelected()) {
-			// TODO: Speichere den ersten selektierten Knoten beim ersten Mausklick
-			// und auch den zweiten selektierten Knoten beim zweiten Mausklick
+			if (graphPanel.getEdgeNode1() == null) {
+				// Der 1. Knoten fuer die Kante wird initialisiert
+				graphPanel.initEdgeNode1(x, y);
+			}
+			else {
+				// Der 1. Knoten fuer die Kante existiert bereits
+				// => Initialisiere den 2. Knoten
+				graphPanel.initEdgeNode2(x, y);
+				
+				if (graphPanel.getEdgeNode2() != null) {
+					graphPanel.createEdge();
+				}
+			}
+		}
+		else {
+			graphPanel.select(x, y);
 		}
 	}
 }

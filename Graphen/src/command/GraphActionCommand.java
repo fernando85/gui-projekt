@@ -1,4 +1,4 @@
-package control;
+package command;
 
 public enum GraphActionCommand {
 
@@ -7,7 +7,6 @@ public enum GraphActionCommand {
 	REDO,
 	NODE,
 	EDGE,
-	CHECK,
-	SELECT;
+	CHECK;
 	
 }

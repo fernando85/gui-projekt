@@ -3,6 +3,8 @@ package control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import command.GraphActionCommand;
+
 import view.HauptPanel;
 
 public class GraphActionListener implements ActionListener {

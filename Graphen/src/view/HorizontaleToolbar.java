@@ -6,7 +6,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-import control.GraphActionCommand;
+import command.GraphActionCommand;
+
 import control.GraphActionListener;
 
 @SuppressWarnings("serial")
