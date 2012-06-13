@@ -23,3 +23,5 @@ Ja, den graphischen Teil kommt in view-Ordner. Graph.java soll ohne GUI auskomme
 Hi, hab im Code wie ein bisschen TODOs geschrieben, die von Dir implementiert werden müssen: GraphPanel.select(), Graph.getNode(), Graph.getEdge().
 Fernando meinte, Du implementierst die Viehs. Ich weiß ja noch nicht, wie Du die Knoten und Kanten darstellen willst.
 
+Erlaubt Ihr überhaupt "delete"? (Knoten bzw. Kanten entfernen)
+
