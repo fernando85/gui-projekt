@@ -29,15 +29,10 @@ public class VerticalToolbar extends JToolBar {
 		nodeToggleButton = new JToggleButton();
 		edgeToggleButton = new JToggleButton();
 		
-		ButtonGroup buttonGroup = new ButtonGroup();
-		buttonGroup.add(nodeToggleButton);
-		buttonGroup.add(edgeToggleButton);
-		
-
 		//---- nodeToggleButton ----
 		nodeToggleButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/node_32.png")));
 		nodeToggleButton.setVerticalAlignment(SwingConstants.TOP);
-		nodeToggleButton.setToolTipText("Knoten erstellen");
+		nodeToggleButton.setToolTipText("Knoten erstellen.");
 		nodeToggleButton.setActionCommand(GraphActionCommand.NODE.name());
 		nodeToggleButton.addActionListener(actionListener);
 		add(nodeToggleButton);
@@ -59,4 +54,13 @@ public class VerticalToolbar extends JToolBar {
 	public boolean isEdgeButtonSelected() {
 		return edgeToggleButton.isSelected();
 	}
+	
+	public void deselectNodeToggleButton() {
+		nodeToggleButton.setSelected(false);
+	}
+	
+	public void deselectEdgeToggleButton() {
+		edgeToggleButton.setSelected(false);
+	}
+	
 }

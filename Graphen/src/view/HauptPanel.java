@@ -78,6 +78,26 @@ public class HauptPanel extends JPanel {
 		graphPanel.check();
 	}
 	
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Button zum
+	 * Erzeugen von Knoten geklickt wurde.
+	 */
+	public void node() {
+		if (vToolbar.isNodeButtonSelected()) {
+			vToolbar.deselectEdgeToggleButton();
+		}
+	}
+	
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Button zum
+	 * Erzeugen von Kanten geklickt wurde.
+	 */
+	public void edge() {
+		if (vToolbar.isEdgeButtonSelected()) {
+			vToolbar.deselectNodeToggleButton();
+		}
+	}
+	
 
 	public void mouseClicked(int x, int y) {
 		if (vToolbar.isNodeButtonSelected()) {
@@ -108,4 +128,5 @@ public class HauptPanel extends JPanel {
 			graphPanel.select(x, y);
 		}
 	}
+
 }

@@ -31,6 +31,12 @@ public class GraphActionListener implements ActionListener {
 		case CHECK:
 			hauptPanel.check();
 			break;
+		case NODE:
+			hauptPanel.node();
+			break;
+		case EDGE:
+			hauptPanel.edge();
+			break;
 		default:
 			break;
 		}
