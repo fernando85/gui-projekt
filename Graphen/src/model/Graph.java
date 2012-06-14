@@ -104,7 +104,7 @@ public class Graph {
 
 	
 	public void restore() {
-		if (lastAction == null) {
+		if (lastAction == null || lastAction.getHistoryCommand() == null) {
 			return;
 		}
 		

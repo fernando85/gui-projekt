@@ -45,6 +45,7 @@ public class HorizontaleToolbar extends JToolBar {
 		//---- undoButton ----
 		undoButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/undo_32.png")));
 		undoButton.setToolTipText("Undo");
+		undoButton.setEnabled(false);
 		undoButton.setActionCommand(GraphActionCommand.UNDO.name());
 		undoButton.addActionListener(actionListener);
 		add(undoButton);

@@ -84,6 +84,10 @@ public class HauptPanel extends JPanel {
 			graphPanel.resetEdgeNodes();
 			
 			graphPanel.createNode(x, y);
+			
+			// Aktiviert das Undo-Button erst, wenn 
+			// der Graph zumindest einen Knoten hat.
+			hToolbar.enableUndoButton();
 		}
 		else if (vToolbar.isEdgeButtonSelected()) {
 			if (graphPanel.getEdgeNode1() == null) {
