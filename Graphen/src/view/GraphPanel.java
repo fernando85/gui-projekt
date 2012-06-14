@@ -77,8 +77,7 @@ public class GraphPanel extends JPanel {
 	 * geklickt wurde.
 	 */
 	public void undo() {
-		graph.undo();
-		
+		graph.restore();
 		repaint();
 	}
 	
@@ -87,8 +86,7 @@ public class GraphPanel extends JPanel {
 	 * geklickt wurde.
 	 */
 	public void redo() {
-		// TODO
-		System.out.println("redo(): Not implemented yet!");
+		graph.restore();
 		repaint();
 	}
 	

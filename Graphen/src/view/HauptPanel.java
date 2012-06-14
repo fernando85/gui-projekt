@@ -58,6 +58,7 @@ public class HauptPanel extends JPanel {
 	 */
 	public void undo() {
 		graphPanel.undo();
+		hToolbar.enableRedoButton();
 	}
 	
 	/**
@@ -66,6 +67,7 @@ public class HauptPanel extends JPanel {
 	 */
 	public void redo() {
 		graphPanel.redo();
+		hToolbar.enableUndoButton();
 	}
 	
 	/**

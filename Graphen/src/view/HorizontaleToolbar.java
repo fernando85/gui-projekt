@@ -53,6 +53,7 @@ public class HorizontaleToolbar extends JToolBar {
 		//---- redoButton ----
 		redoButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/redo_32.png")));
 		redoButton.setToolTipText("Redo");
+		redoButton.setEnabled(false);
 		redoButton.setActionCommand(GraphActionCommand.REDO.name());
 		redoButton.addActionListener(actionListener);
 		add(redoButton);
@@ -67,4 +68,14 @@ public class HorizontaleToolbar extends JToolBar {
 		add(checkButton);
 	}
 	
+	
+	public void enableRedoButton() {
+		redoButton.setEnabled(true);
+		undoButton.setEnabled(false);
+	}
+	
+	public void enableUndoButton() {
+		undoButton.setEnabled(true);
+		redoButton.setEnabled(false);
+	}
 }
