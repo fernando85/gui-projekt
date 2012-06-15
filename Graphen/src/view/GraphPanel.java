@@ -39,6 +39,7 @@ public class GraphPanel extends JPanel {
 	
 	public GraphPanel() {
 		setBackground(Color.WHITE);
+		kreisListe =new ArrayList<Kreis>();
 	}
 	
 	
