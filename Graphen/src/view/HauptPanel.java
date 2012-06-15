@@ -34,6 +34,8 @@ public class HauptPanel extends JPanel {
 	
 	public HauptPanel() {
 		initComponents();
+		kreisList =new ArrayList<Kreis>();
+		kNode = new Kreis(0,0,0,0);
 	}
 
 
