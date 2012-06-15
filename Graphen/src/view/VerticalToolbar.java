@@ -47,18 +47,38 @@ public class VerticalToolbar extends JToolBar {
 	}
 	
 	
+	/**
+	 * Diese Methode ueberprueft, ob der Knopf zum Erstellen 
+	 * eines Knotens geklickt ist und liefert dies zurueck.
+	 * @return 
+	 * <li> {@code true}, wenn der "Node"-Button geklickt ist.
+	 * <li> {@code false}, andernfalls.
+	 */
 	public boolean isNodeButtonSelected() {
 		return nodeToggleButton.isSelected();
 	}
 	
+	/**
+	 * Diese Methode ueberprueft, ob der Knopf zum Erstellen 
+	 * einer Kante geklickt ist und liefert dies zurueck.
+	 * @return 
+	 * <li> {@code true}, wenn der "Edge"-Button geklickt ist.
+	 * <li> {@code false}, andernfalls.
+	 */
 	public boolean isEdgeButtonSelected() {
 		return edgeToggleButton.isSelected();
 	}
 	
+	/**
+	 * Diese Methode deselektiert den "Node"-Button.
+	 */
 	public void deselectNodeToggleButton() {
 		nodeToggleButton.setSelected(false);
 	}
 	
+	/**
+	 * Diese Methode deselektiert den "Edge"-Button.
+	 */
 	public void deselectEdgeToggleButton() {
 		edgeToggleButton.setSelected(false);
 	}

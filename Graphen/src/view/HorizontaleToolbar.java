@@ -70,11 +70,19 @@ public class HorizontaleToolbar extends JToolBar {
 	}
 	
 	
+	/**
+	 * Diese Methode aktiviert den "Redo"-Button und 
+	 * deaktiviert den "Undo"-Button.
+	 */
 	public void enableRedoButton() {
 		redoButton.setEnabled(true);
 		undoButton.setEnabled(false);
 	}
 	
+	/**
+	 * Diese Methode aktiviert den "Undo"-Button und 
+	 * deaktiviert den "Redo"-Button.
+	 */
 	public void enableUndoButton() {
 		undoButton.setEnabled(true);
 		redoButton.setEnabled(false);

@@ -17,7 +17,10 @@ public class GraphPanel extends JPanel {
 
 	private Graph graph = new Graph();
 	
+	/** Der 1. Knoten fuer die Kante. */
 	private Node edgeNode1;
+	
+	/** Der 2. Knoten fuer die Kante. */
 	private Node edgeNode2;
 	
 	public GraphPanel() {
@@ -73,23 +76,16 @@ public class GraphPanel extends JPanel {
 		repaint();
 	}
 	
-	/**
-	 * Diese Methode wird aufgerufen, wenn der Undo-Button
-	 * geklickt wurde.
-	 */
-	public void undo() {
-		graph.restore();
-		repaint();
-	}
 	
 	/**
-	 * Diese Methode wird aufgerufen, wenn der Redo-Button
-	 * geklickt wurde.
+	 * Diese Methode stellt den alten Graphzustand wieder.
 	 */
-	public void redo() {
+	public void restoreGraph() {
 		graph.restore();
+		
 		repaint();
 	}
+
 	
 	/**
 	 * Diese Methode wird aufgerufen, wenn der Check-Button zum 
@@ -99,6 +95,7 @@ public class GraphPanel extends JPanel {
 		// TODO
 		System.out.println("check(): Not implemented yet!");
 	}
+	
 	
 	/**
 	 * Diese Methode wird aufgerufen, wenn der Select-Button
@@ -124,7 +121,7 @@ public class GraphPanel extends JPanel {
 	
 	/**
 	 * Ein Knoten in der Position x und y wird erzeugt und 
-	 * anschliessend in den Graph eingefuegt.
+	 * anschliessend in den Graphen eingefuegt.
 	 */
 	public void createNode(int x, int y) {
 		Node node = new Node(x, y);
@@ -134,8 +131,11 @@ public class GraphPanel extends JPanel {
 	}
 	
 	/**
-	 * Diese Methode wird aufgerufen, wenn der Button zum
-	 * Erzeugen einer neuen Kante geklickt wurde.
+	 * Eine Kante zwischen {@link #edgeNode1} und {@link #edgeNode2}
+	 * wird erzeugt und anschliessend in den Graphen eingefuegt.
+	 * Falls die beiden Knoten gleich sind, wird ein Dialogfenster
+	 * gezeigt mit der Meldung, dass die beiden Knoten unterschiedlich
+	 * sein muessen.
 	 */
 	public void createEdge() {
 		try {

@@ -60,7 +60,7 @@ public class HauptPanel extends JPanel {
 	 * geklickt wurde.
 	 */
 	public void undo() {
-		graphPanel.undo();
+		graphPanel.restoreGraph();
 		hToolbar.enableRedoButton();
 	}
 	
@@ -69,7 +69,7 @@ public class HauptPanel extends JPanel {
 	 * geklickt wurde.
 	 */
 	public void redo() {
-		graphPanel.redo();
+		graphPanel.restoreGraph();
 		hToolbar.enableUndoButton();
 	}
 	
@@ -86,7 +86,9 @@ public class HauptPanel extends JPanel {
 	 * Erzeugen von Knoten geklickt wurde.
 	 */
 	public void node() {
+		// Wenn der Knopf zum Erstellen eines Knotens geklickt ist,
 		if (vToolbar.isNodeButtonSelected()) {
+			// => wird der Knopf zum Erstellen einer Kante deselektiert.
 			vToolbar.deselectEdgeToggleButton();
 		}
 	}
@@ -96,7 +98,9 @@ public class HauptPanel extends JPanel {
 	 * Erzeugen von Kanten geklickt wurde.
 	 */
 	public void edge() {
+		// Wenn der Knopf zum Erstellen einer Kante geklickt ist,
 		if (vToolbar.isEdgeButtonSelected()) {
+			// => wird der Knopf zum Erstellen eines Knotens deselektiert.
 			vToolbar.deselectNodeToggleButton();
 		}
 	}
@@ -104,13 +108,15 @@ public class HauptPanel extends JPanel {
 
 	public void mouseClicked(int x, int y) {
 		if (vToolbar.isNodeButtonSelected()) {
-			graphPanel.resetEdgeNodes();
-			
 			graphPanel.createNode(x, y);
 			
-			// Aktiviert das Undo-Button erst, wenn 
-			// der Graph zumindest einen Knoten hat.
+			// Der Graph hat jetzt mindestens einen Knoten
+			// => Aktiviert das Undo-Button
 			hToolbar.enableUndoButton();
+			
+			// Die selektierten Knoten fuer eine Kante
+			// werden wieder auf null gesetzt.
+			graphPanel.resetEdgeNodes();
 		}
 		else if (vToolbar.isEdgeButtonSelected()) {
 			if (graphPanel.getEdgeNode1() == null) {
