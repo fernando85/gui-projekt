@@ -17,6 +17,15 @@ import control.GraphMouseListener;
 @SuppressWarnings("serial")
 public class HauptPanel extends JPanel {
 	
+	//***********************
+	private ArrayList<Kreis> kreisList;
+	private Kreis kNode;
+	GraphPanel al = new GraphPanel(kreisList);
+	private ArrayList<Linie> linieList;
+	private Linie lEdge;
+	GraphPanel el = new GraphPanel(linieListe;)
+	//***********************
+	
 	private GraphPanel graphPanel;
 	private HorizontaleToolbar hToolbar;
 	private VerticalToolbar vToolbar;
@@ -109,6 +118,11 @@ public class HauptPanel extends JPanel {
 	public void mouseClicked(int x, int y) {
 		if (vToolbar.isNodeButtonSelected()) {
 			graphPanel.createNode(x, y);
+			
+			//****************
+			kNode = new Kreis(x,y,20,20);
+			kreisList.add(kNode);
+			//****************
 			
 			// Der Graph hat jetzt mindestens einen Knoten
 			// => Aktiviert das Undo-Button
