@@ -14,6 +14,20 @@ import model.Node;
 
 @SuppressWarnings("serial")
 public class GraphPanel extends JPanel {
+	//************************
+	private ArrayList<Kreis>  kreisListe;
+	Iterator<Kreis> e;
+	private ArrayList<Linie>  linieListe;
+	Iterator<Linie> el;
+	
+	public GraphPanel(ArrayList<Kreis> kreisListe){
+		this.kreisListe = kreisListe;
+	}
+	
+	public GraphPanel(ArrayList<Linie> linieListe){
+		this.linieListe = linieListe;
+	}
+	//************************************
 
 	private Graph graph = new Graph();
 	
@@ -32,7 +46,30 @@ public class GraphPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		// TODO
+		//***************
+		Kreis k;
+
+		Linie l;
+		
+		
+		for(el = linieListe.iterator(); e.hasNext();){
+			l = el.next();
+			
+			g.setColor(l.getColor(l));
+			g.drawLine(l.headX, l.headY, l.tailX, l.tailY);
+		}
+		
+		
+		for(e = kreisListe.iterator(); e.hasNext();){
+			k = e.next();
+			
+			g.setColor(k.getColor(k));
+			g.drawOval(k.x, k.y, k.width, k.height);
+			
+		}
+	
+	
+		// ************************
 	}
 
 
@@ -104,6 +141,11 @@ public class GraphPanel extends JPanel {
 	public void select(int x, int y) {
 		Node selectedNode = graph.getNode(x, y);
 		if (selectedNode != null) {
+			//**********************
+			Kreis k = new Kreis(x,y,20,20);
+			int idx = kreisListe.indexOf(k);
+			kreisListe.get(idx).selected(kreisListe.get(idx));
+			//**********************
 			// TODO: Selektierer Knoten in GUI erkennbar machen 
 			// (z.B. durch andere Farbe oder durch dickere Raender)
 		}
