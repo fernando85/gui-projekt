@@ -25,5 +25,7 @@ Fernando meinte, Du implementierst die Viehs. Ich wei� ja noch nicht, wie Du d
 
 Erlaubt Ihr �berhaupt "delete"? (Knoten bzw. Kanten entfernen)
 
-Hi, sorry hatte gestern noch Klausur. Also die graphische darstellung der Knoten und Kanten wollt ich über ne Arraylist machen ein für classe kreis und eine für linie, die dan mittels iterator in paintCommponent gezeichnet werden. Knoten bzw kanten löschen is ok 
+Hi, sorry hatte gestern noch Klausur. Also die graphische darstellung der Knoten und Kanten wollt ich über ne Arraylist 
+machen ein für classe kreis und eine für linie, die dan mittels iterator in paintCommponent gezeichnet werden. Knoten 
+bzw kanten löschen is ok 
 
