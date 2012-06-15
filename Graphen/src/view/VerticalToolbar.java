@@ -1,6 +1,5 @@
 package view;
 
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
@@ -20,6 +19,7 @@ public class VerticalToolbar extends JToolBar {
 	
 	public VerticalToolbar(HauptPanel hauptPanel) {
 		actionListener = new GraphActionListener(hauptPanel);
+		
 		setOrientation(SwingConstants.VERTICAL);
 		initComponents();
 	}

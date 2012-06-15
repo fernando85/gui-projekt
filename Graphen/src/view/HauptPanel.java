@@ -9,6 +9,8 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
+import control.GraphMouseListener;
+
 /**
  * @author Fernando Luwinda
  */
@@ -36,6 +38,7 @@ public class HauptPanel extends JPanel {
 
 		//---- graphPanel ----
 		graphPanel.setPreferredSize(new Dimension(500, 500));
+		graphPanel.addMouseListener(new GraphMouseListener(this));
 		add(graphPanel, BorderLayout.CENTER);
 		add(hToolbar, BorderLayout.NORTH);
 		add(vToolbar, BorderLayout.WEST);
