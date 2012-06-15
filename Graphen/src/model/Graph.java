@@ -81,6 +81,10 @@ public class Graph {
 	 */
 	public Node getNode(int x, int y) {
 		for (Node node : nodes) {
+			//***********
+			if(node.getX()==x && node.getY() == y)
+				return node;
+			//***********
 			// TODO: Den Knoten finden, dessen GUI-Figur auf dem Punkt (x,y) liegt.
 		}
 		
