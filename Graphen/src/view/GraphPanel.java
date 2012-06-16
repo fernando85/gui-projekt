@@ -138,7 +138,7 @@ public class GraphPanel extends JPanel {
 	 * geklickt wurde.
 	 */
 	public void select(int x, int y) {
-		
+		//****************
 		Kreis l = new Kreis(0,0,0,0);
 		
 		for(e = kreisListe.iterator(); e.hasNext();){
@@ -155,7 +155,7 @@ public class GraphPanel extends JPanel {
 			}
 		}
 		Node selectedNode = graph.getNode(l.getX(l), l.getY(l));
-		
+		//***************
 		}
 		else {
 			Edge selectedEdge = graph.getEdge(x, y);
