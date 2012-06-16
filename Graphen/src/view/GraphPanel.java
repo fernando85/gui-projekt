@@ -21,7 +21,7 @@ public class GraphPanel extends JPanel {
 	Iterator<Linie> el;
 	
 	public GraphPanel(ArrayList<Kreis> kreisListe){
-		this.kreisListe = new ArrayList<Kreis>( kreisListe);
+		this.kreisListe =  kreisListe;
 		setBackground(Color.WHITE);
 		
 	}
