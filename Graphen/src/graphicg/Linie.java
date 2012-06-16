@@ -18,12 +18,32 @@ public class Linie {
 		
 	}
 	
-	public void selected(Linie l){
-		l.c= new Color(255, 0, 0);
+	public void selected(){
+		this.c= new Color(255, 0, 0);
 	}
 	
-	public Color getColor(Linie l){
-		return l.c;
+	public Color getColor(){
+		return this.c;
+	}
+
+	public int getHeadX() {
+		
+		return this.headX;
+	}
+
+	public int getTailX() {
+		
+		 return this.tailX;
+	}
+
+	public int getTailY() {
+		
+		return this.tailY;
+	}
+
+	public int getHeadY() {
+		
+		return this.headY;
 	}
 
 }
