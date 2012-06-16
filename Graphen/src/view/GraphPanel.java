@@ -138,15 +138,24 @@ public class GraphPanel extends JPanel {
 	 * geklickt wurde.
 	 */
 	public void select(int x, int y) {
-		Node selectedNode = graph.getNode(x, y);
-		if (selectedNode != null) {
-			//**********************
-			Kreis k = new Kreis(x,y,20,20);
-			int idx = kreisListe.indexOf(k);
-			kreisListe.get(idx).selected(kreisListe.get(idx));
-			//**********************
-			// TODO: Selektierer Knoten in GUI erkennbar machen 
-			// (z.B. durch andere Farbe oder durch dickere Raender)
+		
+		Kreis l = new Kreis(0,0,0,0);
+		
+		for(e = kreisListe.iterator(); e.hasNext();){
+			l = e.next();
+			for(int i=x-20; i<=x+20;i++){
+				for(int j = y-20; j<=y+20;j++){
+					Kreis k = new Kreis(i,j,20,20);
+					//System.out.println("X="+i+"Y="+j);
+					if(k.getX(k)==l.getX(l) && k.getY(k) ==l.getY(k)){
+						l.selected(l);
+						
+					}
+				}
+			}
+		}
+		Node selectedNode = graph.getNode(l.getX(l), l.getY(l));
+		
 		}
 		else {
 			Edge selectedEdge = graph.getEdge(x, y);
