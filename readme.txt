@@ -1,4 +1,3 @@
-
 Hi, sorry hatte gestern noch Klausur. Also die graphische darstellung der Knoten und Kanten wollt ich über ne Arraylist 
 machen ein für classe kreis und eine für linie, die dan mittels iterator in paintCommponent gezeichnet werden. Knoten 
 bzw kanten löschen is ok 
@@ -10,3 +9,6 @@ und auch andere Klassen, die Du implementiert hast und noch nicht ins Repository
 und hochgeladen hast.
 Fernando ist grad bei mir und möchte ihm weiter den Code erklären, kann das Projekt natürlich nicht kompilieren, 
 wenn noch Klassen fehlen.
+
+-------------
+So jetzt dürfte das laufen,mach dan morgen weiter
