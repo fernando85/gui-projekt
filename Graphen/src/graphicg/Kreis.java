@@ -3,11 +3,13 @@ package graphicg;
 import java.awt.Color;
 
 public class Kreis {
-	public int x;
-	public int y;
-	public int width;
-	public int height;
-	Color c = new Color(0,255,0);
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+	private int mX;
+	private int mY;
+	private Color c = new Color(0,255,0);
 	
 	
 	
@@ -20,8 +22,8 @@ public class Kreis {
 		
 	}
 	
-	public void selected(Kreis k){
-		k.c = new Color(255,0,0);
+	public void selected(){
+		this.c = new Color(255,0,0);
 		
 	}
 	
@@ -31,9 +33,46 @@ public class Kreis {
 	}
 	
 	public void setColor(Kreis g){
+	}
+	
+	public int getX(){
+		return this.x;
+	}
+	
+	public int getY(){
+		return this.y;
+	}
+	
+	public void setX(int x){
+		this.x=x;
+	}
+	
+	public void setY(int y){
+		this.y=y;
+	}
+
+	public int getHeight() {
 		
+		return this.height;
+	}
+
+	public int getWidth() {
 		
+		return this.width;
+	}
+	
+	public void setMitPkt(int x, int y) {
+		this.mX = x;
+		this.mY = y;
 		
+	}
+	
+	public int getMitPktX() {
+		return this.mX;
+	}
+	
+	public int getMitPktY() {
+		return this.mY;
 	}
 	
 	
