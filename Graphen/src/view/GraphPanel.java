@@ -1,18 +1,18 @@
 package view;
 
+import exception.SameNodesException;
+import graphicg.Kreis;
+import graphicg.Linie;
+
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import view.figure.NodeFigure;
-
-import exception.SameNodesException;
-import graphicg.Kreis;
-import graphicg.Linie;
 
 import model.Edge;
 import model.Graph;
@@ -25,6 +25,9 @@ public class GraphPanel extends JPanel {
 	Iterator<Kreis> e;
 	private ArrayList<Linie>  linieListe;
 	Iterator<Linie> el;
+	
+	private final static int NODE_RADIUS = 8; 
+	
 	
 	public GraphPanel(ArrayList<Kreis> kreisListe, ArrayList<Linie> linieListe){
 		this.kreisListe =  kreisListe;
@@ -41,6 +44,8 @@ public class GraphPanel extends JPanel {
 	
 	/** Der 2. Knoten fuer die Kante. */
 	private Node edgeNode2;
+	
+	private Color nodeColor = new Color(0, 150, 100);
 	
 	public GraphPanel() {
 		setBackground(Color.WHITE);
@@ -75,13 +80,14 @@ public class GraphPanel extends JPanel {
 //		}
 		
 		for (Node node : graph.getNodes()) {
-			NodeFigure nodeFigure = new NodeFigure(node);
-			g.setColor(nodeFigure.getColor());
-			g.drawOval(
-					nodeFigure.getX() - NodeFigure.RADIUS, 
-					nodeFigure.getY() - NodeFigure.RADIUS, 
-					2 * NodeFigure.RADIUS, 
-					2 * NodeFigure.RADIUS
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.setStroke(new BasicStroke(2.0f));
+			g2d.setColor(nodeColor);
+			g2d.fillOval(
+					node.getX() - NODE_RADIUS, 
+					node.getY() - NODE_RADIUS, 
+					2 * NODE_RADIUS, 
+					2 * NODE_RADIUS
 			);
 		}
 	
