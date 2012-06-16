@@ -20,8 +20,9 @@ public class GraphPanel extends JPanel {
 	private ArrayList<Linie>  linieListe;
 	Iterator<Linie> el;
 	
-	public GraphPanel(ArrayList<Kreis> kreisListe){
+	public GraphPanel(ArrayList<Kreis> kreisListe, ArrayList<Linie> linieListe){
 		this.kreisListe =  kreisListe;
+		this.linieListe =  linieListe;
 		setBackground(Color.WHITE);
 		
 	}
@@ -51,7 +52,7 @@ public class GraphPanel extends JPanel {
 		Linie l;
 		
 		
-		for(el = linieListe.iterator(); e.hasNext();){
+		for(el = linieListe.iterator(); el.hasNext();){
 			l = el.next();
 			
 			g.setColor(l.getColor(l));
