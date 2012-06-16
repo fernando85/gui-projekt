@@ -26,8 +26,6 @@ public class GraphPanel extends JPanel {
 	private ArrayList<Linie>  linieListe;
 	Iterator<Linie> el;
 	
-	private final static int NODE_RADIUS = 8; 
-	
 	
 	public GraphPanel(ArrayList<Kreis> kreisListe, ArrayList<Linie> linieListe){
 		this.kreisListe =  kreisListe;
@@ -45,7 +43,7 @@ public class GraphPanel extends JPanel {
 	/** Der 2. Knoten fuer die Kante. */
 	private Node edgeNode2;
 	
-	private Color nodeColor = new Color(0, 150, 100);
+	private Color basicColor = new Color(0, 150, 100);
 	
 	public GraphPanel() {
 		setBackground(Color.WHITE);
@@ -82,13 +80,24 @@ public class GraphPanel extends JPanel {
 		for (Node node : graph.getNodes()) {
 			Graphics2D g2d = (Graphics2D) g;
 			g2d.setStroke(new BasicStroke(2.0f));
-			g2d.setColor(nodeColor);
+			g2d.setColor(basicColor);
 			g2d.fillOval(
-					node.getX() - NODE_RADIUS, 
-					node.getY() - NODE_RADIUS, 
-					2 * NODE_RADIUS, 
-					2 * NODE_RADIUS
+					node.getX() - Node.RADIUS, 
+					node.getY() - Node.RADIUS, 
+					2 * Node.RADIUS, 
+					2 * Node.RADIUS
 			);
+		}
+		
+		
+		for (Edge edge : graph.getEdges()) {
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.setStroke(new BasicStroke(2.0f));
+			g2d.setColor(basicColor);
+			
+			int xPoints[] = {edge.getNode1().getX(), edge.getNode2().getX()};
+			int yPoints[] = {edge.getNode1().getY(), edge.getNode2().getY()};
+			g2d.drawPolyline(xPoints, yPoints, 2);
 		}
 	
 	
@@ -110,11 +119,13 @@ public class GraphPanel extends JPanel {
 	}
 	
 	public void initEdgeNode1(int x, int y) {
-		edgeNode1 = graph.getNode(x, y);
+		// edgeNode1 = graph.getNode(x, y);
+		edgeNode1 = graph.getNodeAtPosition(x, y);
 	}
 	
 	public void initEdgeNode2(int x, int y) {
-		edgeNode2 = graph.getNode(x, y);
+		// edgeNode2 = graph.getNode(x, y);
+		edgeNode2 = graph.getNodeAtPosition(x, y);
 	}
 	
 	/**
@@ -218,6 +229,10 @@ public class GraphPanel extends JPanel {
 		try {
 			Edge edge = new Edge(edgeNode1, edgeNode2);
 			graph.addEdge(edge);
+			
+			// Nach dem Erstellen der Kante werden die ausgewahlten 
+			// Knoten wieder aus null gesetzt
+			resetEdgeNodes();
 		} 
 		catch (SameNodesException e) {
 			JOptionPane.showMessageDialog(null, "Die beiden Knoten muessen unterschiedlich sein!");

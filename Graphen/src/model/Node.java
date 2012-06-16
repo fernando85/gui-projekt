@@ -14,6 +14,8 @@ import java.util.Set;
  */
 public class Node {
 
+	public final static int RADIUS = 6;
+	
 	private static int counter = 0;
 	
 	private int number;

@@ -91,6 +91,28 @@ public class Graph {
 		return null;
 	}
 	
+	/**
+	 * Diese Methode ueberprueft, ob ein Knoten in der Position (x,y) existiert
+	 * und gibt diesen gegebenenfalls zurueck. Wenn kein Knoten in der Position
+	 * (x,y) existiert, wird {@code null} zurueckgegeben.
+	 * 
+	 * @param x   x-Position, die ueberprueft werden muss.
+	 * @param y   y-Position, die ueberprueft werden muss.
+	 * @return Der Knoten in der Position (x,y) wird zurueckgegeben oder
+	 *         {@code null} fuer den Fall, dass kein Knoten in der eingegebenen
+	 *         Position (x,y) existiert.
+	 */
+	public Node getNodeAtPosition(int x, int y) {
+		for (Node node : nodes) {
+			if (x >= node.getX() - Node.RADIUS && x <= node.getX() + Node.RADIUS
+					&& y >= node.getY() - Node.RADIUS && y <= node.getY() + Node.RADIUS) {
+				return node;
+			}
+		}
+
+		return null;
+	}
+	
 	
 	/**
 	 * @param x x-Position von der zu suchenden Kante.
