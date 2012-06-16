@@ -18,12 +18,8 @@ import control.GraphMouseListener;
 public class HauptPanel extends JPanel {
 	
 	//***********************
-	private ArrayList<Kreis> kreisList;
-	private Kreis kNode;
-	GraphPanel al = new GraphPanel(kreisList);
-	private ArrayList<Linie> linieList;
-	private Linie lEdge;
-	GraphPanel el = new GraphPanel(linieListe;)
+	private ArrayList<Kreis> kreisList =new ArrayList<Kreis>();
+	private Kreis kNode = new Kreis(0,0,0,0);
 	//***********************
 	
 	private GraphPanel graphPanel;
@@ -40,7 +36,7 @@ public class HauptPanel extends JPanel {
 
 
 	private void initComponents() {
-		graphPanel = new GraphPanel();
+		graphPanel = new GraphPanel(kreisList);
 		hToolbar = new HorizontaleToolbar(this);
 		vToolbar = new VerticalToolbar(this);
 		//wegPanel = new WegPanel();
