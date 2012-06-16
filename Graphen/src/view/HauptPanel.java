@@ -4,8 +4,12 @@
 
 package view;
 
+import graphicg.Kreis;
+import graphicg.Linie;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -17,12 +21,18 @@ import control.GraphMouseListener;
 @SuppressWarnings("serial")
 public class HauptPanel extends JPanel {
 	
-	//***********************
 	private ArrayList<Kreis> kreisList =new ArrayList<Kreis>();
 	private Kreis kNode = new Kreis(0,0,0,0);
+	
 	private ArrayList<Linie> linieList =new ArrayList<Linie>();
-	private Linie kNode = new Linie(0,0,0,0);
-	//***********************
+	private Linie lEdge = new Linie(0,0,0,0);
+	
+	private Kreis head1 = null;
+	private Kreis tail1 = null;
+	
+	
+	
+	
 	
 	private GraphPanel graphPanel;
 	private HorizontaleToolbar hToolbar;
@@ -32,13 +42,13 @@ public class HauptPanel extends JPanel {
 	
 	public HauptPanel() {
 		initComponents();
-		kreisList =new ArrayList<Kreis>();
-		kNode = new Kreis(0,0,0,0);
+		
+		
 	}
 
 
 	private void initComponents() {
-		graphPanel = new GraphPanel(kreisList, LinieList);
+		graphPanel = new GraphPanel(kreisList, linieList);
 		hToolbar = new HorizontaleToolbar(this);
 		vToolbar = new VerticalToolbar(this);
 		//wegPanel = new WegPanel();
@@ -117,39 +127,78 @@ public class HauptPanel extends JPanel {
 
 	public void mouseClicked(int x, int y) {
 		if (vToolbar.isNodeButtonSelected()) {
-			graphPanel.createNode(x, y);
 			
-			//****************
-			kNode = new Kreis(x,y,20,20);
-			kreisList.add(kNode);
-			//****************
+			if(graphPanel.searchGNode(x, y)== null){
+				kNode = new Kreis(x-10,y-10,2*10-1,2*10-1);
+				kNode.setMitPkt(x, y);
+				kreisList.add(kNode);
+			
+				graphPanel.createNode(kNode.getMitPktX(), kNode.getMitPktY());
 			
 			// Der Graph hat jetzt mindestens einen Knoten
 			// => Aktiviert das Undo-Button
-			hToolbar.enableUndoButton();
+				hToolbar.enableUndoButton();
 			
 			// Die selektierten Knoten fuer eine Kante
 			// werden wieder auf null gesetzt.
-			graphPanel.resetEdgeNodes();
+				graphPanel.resetEdgeNodes();
+			}
+			else{
+				System.out.println("falsch");
+			}
 		}
 		else if (vToolbar.isEdgeButtonSelected()) {
-			if (graphPanel.getEdgeNode1() == null) {
-				// Der 1. Knoten fuer die Kante wird initialisiert
-				graphPanel.initEdgeNode1(x, y);
+			
+			
+			
+			if(head1 == null){
+				head1 = graphPanel.searchGNode(x, y);
+				
 			}
 			else {
-				// Der 1. Knoten fuer die Kante existiert bereits
-				// => Initialisiere den 2. Knoten
-				graphPanel.initEdgeNode2(x, y);
+				tail1 = graphPanel.searchGNode(x, y);
+				if(tail1 != head1){
+					lEdge = new Linie(head1.getMitPktX(), head1.getMitPktY(), tail1.getMitPktX(),tail1.getMitPktY());
+					linieList.add(lEdge);
 				
-				if (graphPanel.getEdgeNode2() != null) {
-					graphPanel.createEdge();
+					head1= null;
+					tail1 = null;
+				}
+				else
+				{
+					tail1 = null;
 				}
 			}
+			
 		}
+			
+			
+//			if (graphPanel.getEdgeNode1() == null) {
+//				// Der 1. Knoten fuer die Kante wird initialisiert
+//				graphPanel.initEdgeNode1(x, y);
+//			}
+//			else {
+//				// Der 1. Knoten fuer die Kante existiert bereits
+//				// => Initialisiere den 2. Knoten
+//				graphPanel.initEdgeNode2(x, y);
+//				
+//				if (graphPanel.getEdgeNode2() != null) {
+//					graphPanel.createEdge();
+//				}
+//			}
+//		}
 		else {
 			graphPanel.select(x, y);
 		}
+		repaint();//*******************************************
 	}
+	
 
 }
+		
+		
+	
+	
+	
+
+
