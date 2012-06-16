@@ -20,6 +20,8 @@ public class HauptPanel extends JPanel {
 	//***********************
 	private ArrayList<Kreis> kreisList =new ArrayList<Kreis>();
 	private Kreis kNode = new Kreis(0,0,0,0);
+	private ArrayList<Linie> linieList =new ArrayList<Linie>();
+	private Linie kNode = new Linie(0,0,0,0);
 	//***********************
 	
 	private GraphPanel graphPanel;
@@ -36,7 +38,7 @@ public class HauptPanel extends JPanel {
 
 
 	private void initComponents() {
-		graphPanel = new GraphPanel(kreisList);
+		graphPanel = new GraphPanel(kreisList, LinieList);
 		hToolbar = new HorizontaleToolbar(this);
 		vToolbar = new VerticalToolbar(this);
 		//wegPanel = new WegPanel();
