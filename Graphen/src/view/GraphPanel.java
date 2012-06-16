@@ -2,11 +2,17 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import view.figure.NodeFigure;
+
 import exception.SameNodesException;
+import graphicg.Kreis;
+import graphicg.Linie;
 
 import model.Edge;
 import model.Graph;
@@ -47,25 +53,36 @@ public class GraphPanel extends JPanel {
 		super.paintComponent(g);
 		
 		//***************
-		Kreis k;
-
-		Linie l;
+//		Kreis k;
+//
+//		Linie l;
+//		
+//		
+//		for(el = linieListe.iterator(); el.hasNext();){
+//			l = el.next();
+//			
+//			g.setColor(l.getColor(l));
+//			g.drawLine(l.headX, l.headY, l.tailX, l.tailY);
+//		}
+//		
+//		
+//		for(e = kreisListe.iterator(); e.hasNext();){
+//			k = e.next();
+//			
+//			g.setColor(k.getColor(k));
+//			g.drawOval(k.x, k.y, k.width, k.height);
+//			
+//		}
 		
-		
-		for(el = linieListe.iterator(); el.hasNext();){
-			l = el.next();
-			
-			g.setColor(l.getColor(l));
-			g.drawLine(l.headX, l.headY, l.tailX, l.tailY);
-		}
-		
-		
-		for(e = kreisListe.iterator(); e.hasNext();){
-			k = e.next();
-			
-			g.setColor(k.getColor(k));
-			g.drawOval(k.x, k.y, k.width, k.height);
-			
+		for (Node node : graph.getNodes()) {
+			NodeFigure nodeFigure = new NodeFigure(node);
+			g.setColor(nodeFigure.getColor());
+			g.drawOval(
+					nodeFigure.getX() - NodeFigure.RADIUS, 
+					nodeFigure.getY() - NodeFigure.RADIUS, 
+					2 * NodeFigure.RADIUS, 
+					2 * NodeFigure.RADIUS
+			);
 		}
 	
 	
@@ -148,23 +165,26 @@ public class GraphPanel extends JPanel {
 				for(int j = y-20; j<=y+20;j++){
 					Kreis k = new Kreis(i,j,20,20);
 					//System.out.println("X="+i+"Y="+j);
-					if(k.getX(k)==l.getX(l) && k.getY(k) ==l.getY(k)){
+					if(k.getX(k)==l.getX(l) && k.getX(k) ==l.getX(k)){
 						l.selected(l);
 						
 					}
 				}
 			}
 		}
-		Node selectedNode = graph.getNode(l.getX(l), l.getY(l));
+		
+		/*
+		Node selectedNode = graph.getNode(l.getX(l), l.getX(l));
 		//***************
-		}
-		else {
+		
+		if (selectedNode == null) {
 			Edge selectedEdge = graph.getEdge(x, y);
 			if (selectedEdge != null) {
 				// TODO: Selektiere Kante in GUI erkennbar machen
 				// (z.B. durch andere Farbe oder durch dickere Raender)
 			}
 		}
+		*/
 		
 		repaint();
 	}
