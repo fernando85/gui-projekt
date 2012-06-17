@@ -37,6 +37,9 @@ public class GraphActionListener implements ActionListener {
 		case EDGE:
 			hauptPanel.edge();
 			break;
+		case DELETE:
+			hauptPanel.delete();
+			break;
 		default:
 			break;
 		}

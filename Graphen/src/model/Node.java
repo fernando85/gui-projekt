@@ -1,7 +1,5 @@
 package model;
 
-import java.util.HashSet;
-import java.util.Set;
 
 
 /**
@@ -16,32 +14,19 @@ public class Node {
 
 	public final static int RADIUS = 6;
 	
-	private static int counter = 0;
-	
-	private int number;
 	private int x = 0;
 	private int y = 0;
 	
-	private Set<Edge> edges = new HashSet<Edge>();;
 	
 	public Node() {
 		
 	}
 
 	public Node(int x, int y) {
-		this.number = ++counter;
 		this.x = x;
 		this.y = y;
 	}
 
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
 
 	public int getX() {
 		return x;
@@ -59,38 +44,37 @@ public class Node {
 		this.y = y;
 	}
 
-	public Set<Edge> getEdges() {
-		return edges;
-	}
-
-	public void setEdges(Set<Edge> edges) {
-		this.edges = edges;
-	}
-
-	public void addEdge(Edge edge) {
-		edges.add(edge);
-	}
-	
 	
 	@Override
 	public String toString() {
-		return number + " = (" + x + "," + y + ")";
+		return "(" + x + "," + y + ")";
 	}
-	
-	
-	/** 
-	 * Zwei Knoten sind unterschiedlich, wenn sie 
-	 * verschiedene {@link #number} haben.
-	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + x;
+		result = prime * result + y;
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Node) {
-			Node other = (Node) obj;
-			
-			return number == other.number;
-		}
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
 		
-		return super.equals(obj);
+		Node other = (Node) obj;
+		if (x != other.x)
+			return false;
+		if (y != other.y)
+			return false;
+		return true;
 	}
+	
 	
 }

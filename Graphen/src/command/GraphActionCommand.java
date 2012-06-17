@@ -23,6 +23,9 @@ public enum GraphActionCommand {
 	EDGE,
 	
 	/** Kommando zum Überprüfen eines Graphen auf Existenz eines Eulerwegs/-kreises. */
-	CHECK;
+	CHECK, 
+	
+	/** Kommando zum Entfernen eines Knotens oder einer Kante. */
+	DELETE;
 	
 }

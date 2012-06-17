@@ -1,15 +1,7 @@
-/*
- * Created by JFormDesigner on Tue Jun 05 19:48:41 CEST 2012
- */
-
 package view;
-
-import graphicg.Kreis;
-import graphicg.Linie;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -21,37 +13,22 @@ import control.GraphMouseListener;
 @SuppressWarnings("serial")
 public class HauptPanel extends JPanel {
 	
-	private ArrayList<Kreis> kreisList =new ArrayList<Kreis>();
-	private Kreis kNode = new Kreis(0,0,0,0);
-	
-	private ArrayList<Linie> linieList =new ArrayList<Linie>();
-	private Linie lEdge = new Linie(0,0,0,0);
-	
-	private Kreis head1 = null;
-	private Kreis tail1 = null;
-	
-	
-	
-	
-	
 	private GraphPanel graphPanel;
 	private HorizontaleToolbar hToolbar;
 	private VerticalToolbar vToolbar;
-	//private WegPanel wegPanel;  //fuer eulerweg/kreis anzeige
+	private WegPanel wegPanel;  //fuer eulerweg/kreis anzeige
 	
 	
 	public HauptPanel() {
 		initComponents();
-		
-		
 	}
 
 
 	private void initComponents() {
-		graphPanel = new GraphPanel(kreisList, linieList);
+		graphPanel = new GraphPanel();
 		hToolbar = new HorizontaleToolbar(this);
 		vToolbar = new VerticalToolbar(this);
-		//wegPanel = new WegPanel();
+		wegPanel = new WegPanel();
 		
 		setLayout(new BorderLayout());
 
@@ -61,7 +38,7 @@ public class HauptPanel extends JPanel {
 		add(graphPanel, BorderLayout.CENTER);
 		add(hToolbar, BorderLayout.NORTH);
 		add(vToolbar, BorderLayout.WEST);
-		//add(wegPanel, BorderLayout.SOUTH);
+		add(wegPanel, BorderLayout.SOUTH);
 		
 	}
 	
@@ -107,8 +84,10 @@ public class HauptPanel extends JPanel {
 	public void node() {
 		// Wenn der Knopf zum Erstellen eines Knotens geklickt ist,
 		if (vToolbar.isNodeButtonSelected()) {
-			// => wird der Knopf zum Erstellen einer Kante deselektiert.
+			// => wird der Knopf zum Erstellen einer Kante deselektiert
 			vToolbar.deselectEdgeToggleButton();
+			// und der "Delete"-Button deaktiviert.
+			vToolbar.setEnableDeleteButton(false);
 		}
 	}
 	
@@ -121,84 +100,59 @@ public class HauptPanel extends JPanel {
 		if (vToolbar.isEdgeButtonSelected()) {
 			// => wird der Knopf zum Erstellen eines Knotens deselektiert.
 			vToolbar.deselectNodeToggleButton();
+			// und der "Delete"-Button deaktiviert.
+			vToolbar.setEnableDeleteButton(false);
 		}
 	}
 	
 
 	public void mouseClicked(int x, int y) {
+		// Anfangs ist nichts selektiert, deswegen setzen wir
+		// das selectedObject auf null.
+		graphPanel.setSelectedObject(null);
+				
 		if (vToolbar.isNodeButtonSelected()) {
-			
-			if(graphPanel.searchGNode(x, y)== null){
-				kNode = new Kreis(x-10,y-10,2*10-1,2*10-1);
-				kNode.setMitPkt(x, y);
-				kreisList.add(kNode);
-			
-				graphPanel.createNode(kNode.getMitPktX(), kNode.getMitPktY());
+			graphPanel.createNode(x, y);
 			
 			// Der Graph hat jetzt mindestens einen Knoten
 			// => Aktiviert das Undo-Button
-				hToolbar.enableUndoButton();
-			
+			hToolbar.enableUndoButton();
+		
 			// Die selektierten Knoten fuer eine Kante
 			// werden wieder auf null gesetzt.
-				graphPanel.resetEdgeNodes();
-			}
-			else{
-				System.out.println("falsch");
-			}
+			graphPanel.resetEdgeNodes();
 		}
 		else if (vToolbar.isEdgeButtonSelected()) {
-			
-			
-			
-			if(head1 == null){
-				head1 = graphPanel.searchGNode(x, y);
-				
+			if (graphPanel.getEdgeNode1() == null) {
+				// Der 1. Knoten fuer die Kante wird initialisiert
+				graphPanel.initEdgeNode1(x, y);
 			}
 			else {
-				tail1 = graphPanel.searchGNode(x, y);
-				if(tail1 != head1){
-					lEdge = new Linie(head1.getMitPktX(), head1.getMitPktY(), tail1.getMitPktX(),tail1.getMitPktY());
-					linieList.add(lEdge);
+				// Der 1. Knoten fuer die Kante existiert bereits
+				// => Initialisiere den 2. Knoten
+				graphPanel.initEdgeNode2(x, y);
 				
-					head1= null;
-					tail1 = null;
-				}
-				else
-				{
-					tail1 = null;
+				if (graphPanel.getEdgeNode2() != null) {
+					graphPanel.createEdge();
 				}
 			}
-			
 		}
-			
-			
-//			if (graphPanel.getEdgeNode1() == null) {
-//				// Der 1. Knoten fuer die Kante wird initialisiert
-//				graphPanel.initEdgeNode1(x, y);
-//			}
-//			else {
-//				// Der 1. Knoten fuer die Kante existiert bereits
-//				// => Initialisiere den 2. Knoten
-//				graphPanel.initEdgeNode2(x, y);
-//				
-//				if (graphPanel.getEdgeNode2() != null) {
-//					graphPanel.createEdge();
-//				}
-//			}
-//		}
 		else {
 			graphPanel.select(x, y);
 		}
-		repaint();//*******************************************
+		
+		// Am Ende wird der "Delete"-Button (de)aktiviert, je nachdem
+		// ob ein Knoten oder Kante selektiert ist.
+		vToolbar.setEnableDeleteButton(graphPanel.getSelectedObject() != null);
+		
+		repaint();
 	}
+
+
 	
+	public void delete() {
+		graphPanel.deleteSelectedObject();
+	}
+
 
 }
-		
-		
-	
-	
-	
-
-

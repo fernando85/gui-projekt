@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
@@ -16,6 +17,7 @@ public class VerticalToolbar extends JToolBar {
 	
 	private JToggleButton nodeToggleButton;
 	private JToggleButton edgeToggleButton;
+	private JButton deleteButton;
 	
 	public VerticalToolbar(HauptPanel hauptPanel) {
 		actionListener = new GraphActionListener(hauptPanel);
@@ -28,6 +30,7 @@ public class VerticalToolbar extends JToolBar {
 	private void initComponents() {
 		nodeToggleButton = new JToggleButton();
 		edgeToggleButton = new JToggleButton();
+		deleteButton = new JButton();
 		
 		//---- nodeToggleButton ----
 		nodeToggleButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/node_32.png")));
@@ -44,6 +47,14 @@ public class VerticalToolbar extends JToolBar {
 		edgeToggleButton.setActionCommand(GraphActionCommand.EDGE.name());
 		edgeToggleButton.addActionListener(actionListener);
 		add(edgeToggleButton);
+		
+		//---- deleteButton ----
+		deleteButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/delete_32.png")));
+		deleteButton.setToolTipText("Knoten/Kante entfernen.");
+		deleteButton.setEnabled(false);
+		deleteButton.setActionCommand(GraphActionCommand.DELETE.name());
+		deleteButton.addActionListener(actionListener);
+		add(deleteButton);
 	}
 	
 	
@@ -83,4 +94,14 @@ public class VerticalToolbar extends JToolBar {
 		edgeToggleButton.setSelected(false);
 	}
 	
+	
+	/**
+	 * Diede Methode aktiviert den "Delete"-Button, wenn der
+	 * eingegebene Parameter den Wert {@code true} hat, und
+	 * deaktiviert, wenn der Wert {@code false} ist.
+	 * @param enable Der Wert {@code true} oder {@code false}
+	 */
+	public void setEnableDeleteButton(boolean enable) {
+		deleteButton.setEnabled(enable);
+	}
 }

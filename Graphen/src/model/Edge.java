@@ -48,23 +48,40 @@ public class Edge {
 	public String toString() {
 		return node1 + "---" + node2;
 	}
-	
-	
-	/**
-	 * Zwei Kanten sind gleich, wenn die Knoten gleich sind, die von 
-	 * den beiden Kanten gespeichert sind.
-	 */
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((node1 == null) ? 0 : node1.hashCode());
+		result = prime * result + ((node2 == null) ? 0 : node2.hashCode());
+		return result;
+	}
+
+
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Edge) {
-			Edge other = (Edge) obj;
-			
-			return 
-				(node1.equals(other.node1) && node2.equals(other.node2))
-				||
-				(node1.equals(other.node2) && node2.equals(other.node1));
-		}
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
 		
-		return super.equals(obj);
+		Edge other = (Edge) obj;
+		if (node1 == null) {
+			if (other.node1 != null)
+				return false;
+		} else if (!node1.equals(other.node1))
+			return false;
+		if (node2 == null) {
+			if (other.node2 != null)
+				return false;
+		} else if (!node2.equals(other.node2))
+			return false;
+		return true;
 	}
+	
+	
 }

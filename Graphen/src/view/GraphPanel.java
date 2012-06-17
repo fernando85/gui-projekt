@@ -1,36 +1,24 @@
 package view;
 
-import graphicg.*;//meins
-
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.awt.Graphics2D;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import exception.SameNodesException;
-
 import model.Edge;
 import model.Graph;
 import model.Node;
+import exception.SameNodesException;
+
 
 @SuppressWarnings("serial")
 public class GraphPanel extends JPanel {
 	
-	private ArrayList<Kreis>  kreisListe;//*******************
-	Iterator<Kreis> e;
-	private ArrayList<Linie>  linieListe;
-	Iterator<Linie> el;
+	private Object selectedObject;
 	
-	public GraphPanel(ArrayList<Kreis> kreisListe, ArrayList<Linie> linieListe){
-		this.kreisListe =  kreisListe;//********************
-		this.linieListe = linieListe;
-		setBackground(Color.WHITE);
-		
-	}
-
 	private Graph graph = new Graph();
 	
 	/** Der 1. Knoten fuer die Kante. */
@@ -39,45 +27,52 @@ public class GraphPanel extends JPanel {
 	/** Der 2. Knoten fuer die Kante. */
 	private Node edgeNode2;
 	
+	private Color basicColor = new Color(0, 150, 100);
+	
+	
 	public GraphPanel() {
 		setBackground(Color.WHITE);
-		kreisListe = new ArrayList<Kreis>();
-		linieListe = new ArrayList<Linie>();
-		//kNode = new Kreis(0,0,0,0);
 	}
 	
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Kreis k;
-
-		Linie l;
 		
-		
-		for(el = linieListe.iterator(); el.hasNext();){
-			l = el.next();
-			
-			g.setColor(l.getColor());
-			g.drawLine(l.getHeadX(), l.getHeadY(), l.getTailX(), l.getTailY());
+		for (Node node : graph.getNodes()) {
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.setStroke(new BasicStroke(2.0f));
+			g2d.setColor(basicColor);
+			g2d.fillOval(
+					node.getX() - Node.RADIUS, 
+					node.getY() - Node.RADIUS, 
+					2 * Node.RADIUS, 
+					2 * Node.RADIUS
+			);
 		}
-	
 		
-		for(e = kreisListe.iterator(); e.hasNext();){
-			k = e.next();
-			
-			g.setColor(k.getColor(k));
-			g.drawOval(k.getX(), k.getY(), k.getWidth(), k.getHeight());
-			
+		for (Edge edge : graph.getEdges()) {
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.setStroke(new BasicStroke(2.0f));
+			g2d.setColor(basicColor);
+			g2d.drawLine(edge.getNode1().getX(), edge.getNode1().getY(), 
+					edge.getNode2().getX(), edge.getNode2().getY());
 		}
-		repaint();
-	
-	
+		
 	}
 
 
 	public Graph getGraph() {
 		return graph;
+	}
+	
+	
+	public Object getSelectedObject() {
+		return selectedObject;
+	}
+	
+	public void setSelectedObject(Object o) {
+		selectedObject = o;
 	}
 
 	
@@ -90,11 +85,11 @@ public class GraphPanel extends JPanel {
 	}
 	
 	public void initEdgeNode1(int x, int y) {
-		edgeNode1 = graph.getNode(x, y);
+		edgeNode1 = graph.getNodeAtPosition(x, y);
 	}
 	
 	public void initEdgeNode2(int x, int y) {
-		edgeNode2 = graph.getNode(x, y);
+		edgeNode2 = graph.getNodeAtPosition(x, y);
 	}
 	
 	/**
@@ -142,28 +137,20 @@ public class GraphPanel extends JPanel {
 	 * geklickt wurde.
 	 */
 	public void select(int x, int y) {
-		
-		Kreis k = searchGNode(x, y);
-		if (k != null){
-			k.selected();
-			Node selectedNode = graph.getNode(k.getX(), k.getY());
-		}
-		
-		
-
-		
-		
-			
-			
-			
-			// TODO: Selektierer Knoten in GUI erkennbar machen 
-			// (z.B. durch andere Farbe oder durch dickere Raender)
-		
-		else {
-			Edge selectedEdge = graph.getEdge(x, y);
-			if (selectedEdge != null) {
-				// TODO: Selektiere Kante in GUI erkennbar machen
+		selectedObject = graph.getNodeAtPosition(x, y);
+		if (selectedObject == null) {
+			selectedObject = graph.getEdge(x, y);
+			if (selectedObject != null) {
+				// TODO: Selektierer Knoten in GUI erkennbar machen 
 				// (z.B. durch andere Farbe oder durch dickere Raender)
+			}
+		
+			else {
+				selectedObject = graph.getEdge(x, y);
+				if (selectedObject != null) {
+					// TODO: Selektiere Kante in GUI erkennbar machen
+					// (z.B. durch andere Farbe oder durch dickere Raender)
+				}
 			}
 		}
 		
@@ -193,6 +180,10 @@ public class GraphPanel extends JPanel {
 		try {
 			Edge edge = new Edge(edgeNode1, edgeNode2);
 			graph.addEdge(edge);
+			
+			// Nach dem Erstellen der Kante werden die ausgewahlten 
+			// Knoten wieder aus null gesetzt
+			resetEdgeNodes();
 		} 
 		catch (SameNodesException e) {
 			JOptionPane.showMessageDialog(null, "Die beiden Knoten muessen unterschiedlich sein!");
@@ -202,24 +193,19 @@ public class GraphPanel extends JPanel {
 	}
 	
 	
-	
-	// prüfen ob ein knoten in dem gebiet ist
-	public Kreis searchGNode(int x, int y) {
-		Kreis l = null;
-
-		for(e = kreisListe.iterator(); e.hasNext();){
-			l = e.next();
-			for(int i=x-10; i<=x+10;i++){
-				for(int j = y-20; j<=y+20;j++){
-					Kreis k = new Kreis(i-20,j-20,2*10-1,2*10-1);
-					k.setMitPkt(i, j);
-					
-					if(k.getMitPktX()==l.getMitPktX() && k.getMitPktY() ==l.getMitPktY())
-						return l;
-				}
-			}
+	public void deleteSelectedObject() {
+		if (selectedObject == null) {
+			return;
 		}
-		l = null;
-		return l;
+		
+		if (selectedObject instanceof Node) {
+			graph.removeNode((Node) selectedObject);
+		}
+		else if (selectedObject instanceof Edge) {
+			graph.removeEdge((Edge) selectedObject);
+		}
+		
+		repaint();
 	}
+	
 }

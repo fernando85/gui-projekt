@@ -54,6 +54,29 @@ public class Graph {
 		return nodeAdded;
 	}
 	
+	/**
+	 * Diese Methode loescht den eingegebenen Knoten.
+	 * Vorher werden alle Kanten geloescht, die den Knoten
+	 * mit einem anderen Knoten verbindet.
+	 * @param node Der Knoten, der geloescht wird.
+	 */
+	public void removeNode(Node node) {
+		Set<Edge> edgesToRemove = new HashSet<Edge>();
+		
+		for (Edge edge : edges) {
+			if (node.equals(edge.getNode1()) || node.equals(edge.getNode2())) {
+				edgesToRemove.add(edge);
+			}
+		}
+		
+		// Kanten loeschen
+		edges.removeAll(edgesToRemove);
+		
+		// Knoten loeschen
+		nodes.remove(node);
+	}
+	
+	
 	public boolean addEdge(Edge edge) {
 		boolean edgeAdded = false;
 		
@@ -69,9 +92,10 @@ public class Graph {
 		return edgeAdded;
 	}
 	
-	public int getNumberOfNodes() {
-		return nodes.size();
+	public void removeEdge(Edge edge) {
+		edges.remove(edge);
 	}
+	
 	
 	/**
 	 * @param x x-Position von dem zu suchenden Knoten.
