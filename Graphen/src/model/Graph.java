@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import command.HistoryCommand;
@@ -10,13 +12,13 @@ public class Graph {
 	private Set<Node> nodes;
 	private Set<Edge> edges;
 	
-	private History lastAction;
+	private List<History> lastActions;
 	
 	public Graph() {
 		nodes = new HashSet<Node>();
 		edges = new HashSet<Edge>();
 		
-		lastAction = new History();
+		lastActions = new ArrayList<History>();
 	}
 
 
@@ -39,19 +41,13 @@ public class Graph {
 		this.edges = edges;
 	}
 
-	public boolean addNode(Node node) {
-		boolean nodeAdded = false; 
-		
-		if (node != null) {
-			nodeAdded = nodes.add(node);
+	public void addNode(Node node) {
+		if (nodes.add(node)) {
+			lastActions.clear();
+			
+			History lastAction = new History(HistoryCommand.ADD_NODE, node);
+			lastActions.add(lastAction);
 		}
-		
-		if (nodeAdded) {
-			lastAction.setHistoryCommand(HistoryCommand.ADD_NODE);
-			lastAction.setGraphElement(node);
-		}
-		
-		return nodeAdded;
 	}
 	
 	/**
@@ -69,31 +65,40 @@ public class Graph {
 			}
 		}
 		
+		lastActions.clear();
+		
 		// Kanten loeschen
-		edges.removeAll(edgesToRemove);
+		for (Edge edge : edgesToRemove) {
+			edges.remove(edge);
+			
+			History removeEdgeAction = new History(HistoryCommand.DELETE_EDGE, edge);
+			lastActions.add(0, removeEdgeAction);
+		}
 		
 		// Knoten loeschen
-		nodes.remove(node);
+		if (nodes.remove(node)) {
+			History removeNodeAction = new History(HistoryCommand.DELETE_NODE, node);
+			lastActions.add(0, removeNodeAction);
+		}
 	}
 	
 	
-	public boolean addEdge(Edge edge) {
-		boolean edgeAdded = false;
-		
-		if (edge != null) {
-			edgeAdded = edges.add(edge);	
+	public void addEdge(Edge edge) {
+		if (edges.add(edge)) {
+			lastActions.clear();
+			
+			History lastAction = new History(HistoryCommand.ADD_EDGE, edge);
+			lastActions.add(lastAction);
 		}
-		
-		if (edgeAdded) {
-			lastAction.setHistoryCommand(HistoryCommand.ADD_EDGE);
-			lastAction.setGraphElement(edge);
-		}
-		
-		return edgeAdded;
 	}
 	
 	public void removeEdge(Edge edge) {
-		edges.remove(edge);
+		if (edges.remove(edge)) {
+			lastActions.clear();
+			
+			History lastAction = new History(HistoryCommand.DELETE_EDGE, edge);
+			lastActions.add(lastAction);
+		}
 	}
 	
 	
@@ -154,54 +159,57 @@ public class Graph {
 
 	
 	public void restore() {
-		if (lastAction == null || lastAction.getHistoryCommand() == null) {
+		if (lastActions == null || lastActions.isEmpty()) {
 			return;
 		}
 		
-		Object graphElement = lastAction.getGraphElement();
-		
-		switch (lastAction.getHistoryCommand()) {
-		case ADD_NODE:
-			if (graphElement instanceof Node) {
-				Node node = (Node) graphElement;
-				if (nodes.remove(node)) {
-					lastAction.setHistoryCommand(HistoryCommand.DELETE_NODE);
-					lastAction.setGraphElement(node);						
+		for (History lastAction : lastActions) {
+			Object graphElement = lastAction.getGraphElement();
+			
+			switch (lastAction.getHistoryCommand()) {
+			case ADD_NODE:
+				if (graphElement instanceof Node) {
+					Node node = (Node) graphElement;
+					if (nodes.remove(node)) {
+						lastAction.setHistoryCommand(HistoryCommand.DELETE_NODE);
+						lastAction.setGraphElement(node);						
+					}
 				}
-			}
-			break;
-		case DELETE_NODE:
-			if (graphElement instanceof Node) {
-				Node node = (Node) graphElement;
-				if (nodes.add(node)) {
-					lastAction.setHistoryCommand(HistoryCommand.ADD_NODE);
-					lastAction.setGraphElement(node);						
+				break;
+			case DELETE_NODE:
+				if (graphElement instanceof Node) {
+					Node node = (Node) graphElement;
+					if (nodes.add(node)) {
+						lastAction.setHistoryCommand(HistoryCommand.ADD_NODE);
+						lastAction.setGraphElement(node);						
+					}
 				}
-			}
-			break;
-		case MOVE_NODE:
-			// TODO
-			break;
-		case ADD_EDGE:
-			if (graphElement instanceof Edge) {
-				Edge edge = (Edge) graphElement;
-				if (edges.remove(edge)) {
-					lastAction.setHistoryCommand(HistoryCommand.DELETE_EDGE);
-					lastAction.setGraphElement(edge);						
+				break;
+			case MOVE_NODE:
+				// TODO
+				break;
+			case ADD_EDGE:
+				if (graphElement instanceof Edge) {
+					Edge edge = (Edge) graphElement;
+					if (edges.remove(edge)) {
+						lastAction.setHistoryCommand(HistoryCommand.DELETE_EDGE);
+						lastAction.setGraphElement(edge);						
+					}
 				}
-			}
-			break;
-		case DELETE_EDGE:
-			if (graphElement instanceof Edge) {
-				Edge edge = (Edge) graphElement;
-				if (edges.add(edge)) {
-					lastAction.setHistoryCommand(HistoryCommand.ADD_EDGE);
-					lastAction.setGraphElement(edge);						
+				break;
+			case DELETE_EDGE:
+				if (graphElement instanceof Edge) {
+					Edge edge = (Edge) graphElement;
+					if (edges.add(edge)) {
+						lastAction.setHistoryCommand(HistoryCommand.ADD_EDGE);
+						lastAction.setGraphElement(edge);						
+					}
 				}
+				break;
+			default:
+				break;
 			}
-			break;
-		default:
-			break;
 		}
+		
 	}
 }

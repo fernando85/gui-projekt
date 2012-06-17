@@ -18,6 +18,11 @@ public class History {
 		
 	}
 	
+	public History(HistoryCommand historyCommand, Object graphElement) {
+		this.historyCommand = historyCommand;
+		this.graphElement = graphElement;
+	}
+	
 	
 	public HistoryCommand getHistoryCommand() {
 		return historyCommand;
