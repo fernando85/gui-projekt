@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import model.Edge;
 import model.Graph;
 import model.Node;
+import exception.EdgeAlreadyExistException;
 import exception.SameNodesException;
 
 
@@ -181,15 +182,18 @@ public class GraphPanel extends JPanel {
 			Edge edge = new Edge(edgeNode1, edgeNode2);
 			graph.addEdge(edge);
 			
-			// Nach dem Erstellen der Kante werden die ausgewahlten 
-			// Knoten wieder aus null gesetzt
-			resetEdgeNodes();
+			repaint();
 		} 
-		catch (SameNodesException e) {
-			JOptionPane.showMessageDialog(null, "Die beiden Knoten muessen unterschiedlich sein!");
+		catch (SameNodesException e1) {
+			JOptionPane.showMessageDialog(null, e1.getMessage());
+		}
+		catch (EdgeAlreadyExistException e2) {
+			JOptionPane.showMessageDialog(null, e2.getMessage());
 		}
 		
-		repaint();
+		// Nach dem Erstellen der Kante werden die ausgewahlten 
+		// Knoten wieder aus null gesetzt
+		resetEdgeNodes();
 	}
 	
 	

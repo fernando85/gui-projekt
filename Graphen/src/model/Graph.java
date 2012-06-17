@@ -6,12 +6,17 @@ import java.util.List;
 import java.util.Set;
 
 import command.HistoryCommand;
+import exception.EdgeAlreadyExistException;
 
 public class Graph {
 
+	/** Diese Variable speichert eine Menge von Knoten. */
 	private Set<Node> nodes;
+	
+	/** Diese Variable speichert eine Menge von Kanten. */
 	private Set<Edge> edges;
 	
+	/** Diese Variable speichert eine Liste zuletzt ausgefuehrte Nutzeraktionen von Knoten. */
 	private List<History> lastActions;
 	
 	public Graph() {
@@ -83,7 +88,11 @@ public class Graph {
 	}
 	
 	
-	public void addEdge(Edge edge) {
+	public void addEdge(Edge edge) throws EdgeAlreadyExistException {
+		if (edges.contains(edge)) {
+			throw new EdgeAlreadyExistException();
+		}
+		
 		if (edges.add(edge)) {
 			lastActions.clear();
 			
