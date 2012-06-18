@@ -31,6 +31,9 @@ public class GraphActionListener implements ActionListener {
 		case CHECK:
 			hauptPanel.check();
 			break;
+		case SELECT:
+			hauptPanel.select();
+			break;
 		case NODE:
 			hauptPanel.node();
 			break;
@@ -43,6 +46,8 @@ public class GraphActionListener implements ActionListener {
 		default:
 			break;
 		}
+		
+		hauptPanel.repaint();
 	}
 
 }

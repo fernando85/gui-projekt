@@ -15,6 +15,7 @@ public class VerticalToolbar extends JToolBar {
 	
 	private GraphActionListener actionListener;
 	
+	private JToggleButton selectToggleButton;
 	private JToggleButton nodeToggleButton;
 	private JToggleButton edgeToggleButton;
 	private JButton deleteButton;
@@ -28,14 +29,24 @@ public class VerticalToolbar extends JToolBar {
 	
 	
 	private void initComponents() {
+		selectToggleButton = new JToggleButton();
 		nodeToggleButton = new JToggleButton();
 		edgeToggleButton = new JToggleButton();
 		deleteButton = new JButton();
 		
+		//---- selectToggleButton ----
+		selectToggleButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/select_32.png")));
+		selectToggleButton.setVerticalAlignment(SwingConstants.TOP);
+		selectToggleButton.setToolTipText("Auswaehlen");
+		selectToggleButton.setActionCommand(GraphActionCommand.SELECT.name());
+		selectToggleButton.addActionListener(actionListener);
+		add(selectToggleButton);
+		addSeparator();
+		
 		//---- nodeToggleButton ----
 		nodeToggleButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/node_32.png")));
 		nodeToggleButton.setVerticalAlignment(SwingConstants.TOP);
-		nodeToggleButton.setToolTipText("Knoten erstellen.");
+		nodeToggleButton.setToolTipText("Knoten erstellen");
 		nodeToggleButton.setActionCommand(GraphActionCommand.NODE.name());
 		nodeToggleButton.addActionListener(actionListener);
 		add(nodeToggleButton);
@@ -43,7 +54,7 @@ public class VerticalToolbar extends JToolBar {
 
 		//---- edgeToggleButton ----
 		edgeToggleButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/edge_32.png")));
-		edgeToggleButton.setToolTipText("Kante erstellen.");
+		edgeToggleButton.setToolTipText("Kante erstellen");
 		edgeToggleButton.setActionCommand(GraphActionCommand.EDGE.name());
 		edgeToggleButton.addActionListener(actionListener);
 		add(edgeToggleButton);
@@ -57,6 +68,16 @@ public class VerticalToolbar extends JToolBar {
 		add(deleteButton);
 	}
 	
+	/**
+	 * Diese Methode ueberprueft, ob der Knopf zum Auswaehlen 
+	 * eines Graphelementes geklickt ist und liefert dies zurueck.
+	 * @return 
+	 * <li> {@code true}, wenn der "Node"-Button geklickt ist.
+	 * <li> {@code false}, andernfalls.
+	 */
+	public boolean isSelectButtonSelected() {
+		return selectToggleButton.isSelected();
+	}
 	
 	/**
 	 * Diese Methode ueberprueft, ob der Knopf zum Erstellen 
@@ -78,6 +99,13 @@ public class VerticalToolbar extends JToolBar {
 	 */
 	public boolean isEdgeButtonSelected() {
 		return edgeToggleButton.isSelected();
+	}
+	
+	/**
+	 * Diese Methode deselektiert den "Select"-Button.
+	 */
+	public void deselectSelectToggleButton() {
+		selectToggleButton.setSelected(false);
 	}
 	
 	/**

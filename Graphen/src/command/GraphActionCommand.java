@@ -16,6 +16,9 @@ public enum GraphActionCommand {
 	/** Kommando zum Fordern einer Redo-Aktion. */
 	REDO,
 	
+	/** Kommando zum Auswaehlen eines Graphelementes. */
+	SELECT,
+	
 	/** Kommando zum An-/Ausschalten des ToggleButton zum Erstellen von Knoten. */
 	NODE,
 	

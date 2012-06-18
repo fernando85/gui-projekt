@@ -28,7 +28,8 @@ public class GraphPanel extends JPanel {
 	/** Der 2. Knoten fuer die Kante. */
 	private Node edgeNode2;
 	
-	private Color basicColor = new Color(0, 150, 100);
+	private Color basicColor = Color.BLACK;
+	private Color selectedColor = new Color(0, 150, 100); 
 	
 	
 	public GraphPanel() {
@@ -41,10 +42,14 @@ public class GraphPanel extends JPanel {
 		super.paintComponent(g);
 		
 		for (Node node : graph.getNodes()) {
-			Graphics2D g2d = (Graphics2D) g;
-			g2d.setStroke(new BasicStroke(2.0f));
-			g2d.setColor(basicColor);
-			g2d.fillOval(
+			if (node.equals(selectedObject)) {
+				g.setColor(selectedColor);
+			}
+			else {
+				g.setColor(basicColor);	
+			}
+			
+			g.fillOval(
 					node.getX() - Node.RADIUS, 
 					node.getY() - Node.RADIUS, 
 					2 * Node.RADIUS, 
@@ -154,8 +159,6 @@ public class GraphPanel extends JPanel {
 				}
 			}
 		}
-		
-		repaint();
 	}
 	
 	
@@ -166,8 +169,6 @@ public class GraphPanel extends JPanel {
 	public void createNode(int x, int y) {
 		Node node = new Node(x, y);
 		graph.addNode(node);
-		
-		repaint();
 	}
 	
 	/**
@@ -181,8 +182,6 @@ public class GraphPanel extends JPanel {
 		try {
 			Edge edge = new Edge(edgeNode1, edgeNode2);
 			graph.addEdge(edge);
-			
-			repaint();
 		} 
 		catch (SameNodesException e1) {
 			JOptionPane.showMessageDialog(null, e1.getMessage());

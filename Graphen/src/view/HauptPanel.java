@@ -79,16 +79,39 @@ public class HauptPanel extends JPanel {
 	
 	/**
 	 * Diese Methode wird aufgerufen, wenn der Button zum
+	 * Auswaehlen eines Graphelementes geklickt wurde.
+	 */
+	public void select() {
+		// Wenn der Knopf zum Auswaehlen eines Graphelementes geklickt ist,
+		if (vToolbar.isSelectButtonSelected()) {
+			// => wird der Knopf zum Erstellen einer Knoten bzw. Kante deselektiert
+			vToolbar.deselectNodeToggleButton();
+			vToolbar.deselectEdgeToggleButton();
+			
+			// und der "Delete"-Button deaktiviert.
+			vToolbar.setEnableDeleteButton(false);
+		}
+		
+		graphPanel.setSelectedObject(null);
+	}
+	
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Button zum
 	 * Erzeugen von Knoten geklickt wurde.
 	 */
 	public void node() {
 		// Wenn der Knopf zum Erstellen eines Knotens geklickt ist,
 		if (vToolbar.isNodeButtonSelected()) {
-			// => wird der Knopf zum Erstellen einer Kante deselektiert
+			// => wird der Knopf zum Auswaehlen und zum Erstellen 
+			// einer Kante deselektiert
+			vToolbar.deselectSelectToggleButton();
 			vToolbar.deselectEdgeToggleButton();
+			
 			// und der "Delete"-Button deaktiviert.
 			vToolbar.setEnableDeleteButton(false);
 		}
+		
+		graphPanel.setSelectedObject(null);
 	}
 	
 	/**
@@ -96,13 +119,19 @@ public class HauptPanel extends JPanel {
 	 * Erzeugen von Kanten geklickt wurde.
 	 */
 	public void edge() {
-		// Wenn der Knopf zum Erstellen einer Kante geklickt ist,
+		// Wenn der Knopf zum Auswaehlen und zum Erstellen 
+		// einer Kante geklickt ist,
 		if (vToolbar.isEdgeButtonSelected()) {
 			// => wird der Knopf zum Erstellen eines Knotens deselektiert.
+			vToolbar.deselectSelectToggleButton();
 			vToolbar.deselectNodeToggleButton();
+			
+			
 			// und der "Delete"-Button deaktiviert.
 			vToolbar.setEnableDeleteButton(false);
 		}
+		
+		graphPanel.setSelectedObject(null);
 	}
 	
 
@@ -137,7 +166,7 @@ public class HauptPanel extends JPanel {
 				}
 			}
 		}
-		else {
+		else if (vToolbar.isSelectButtonSelected()) {
 			graphPanel.select(x, y);
 		}
 		
