@@ -79,6 +79,7 @@ public class GraphPanel extends JPanel {
 	
 	public void setSelectedObject(Object o) {
 		selectedObject = o;
+		repaint();
 	}
 
 	

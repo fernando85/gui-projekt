@@ -1,5 +1,8 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
@@ -8,12 +11,10 @@ import javax.swing.SwingConstants;
 
 import command.GraphActionCommand;
 
-import control.GraphActionListener;
-
 @SuppressWarnings("serial")
 public class VerticalToolbar extends JToolBar {
 	
-	private GraphActionListener actionListener;
+	private HauptPanel hauptPanel;
 	
 	private JToggleButton selectToggleButton;
 	private JToggleButton nodeToggleButton;
@@ -21,7 +22,7 @@ public class VerticalToolbar extends JToolBar {
 	private JButton deleteButton;
 	
 	public VerticalToolbar(HauptPanel hauptPanel) {
-		actionListener = new GraphActionListener(hauptPanel);
+		this.hauptPanel = hauptPanel;
 		
 		setOrientation(SwingConstants.VERTICAL);
 		initComponents();
@@ -38,8 +39,12 @@ public class VerticalToolbar extends JToolBar {
 		selectToggleButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/select_32.png")));
 		selectToggleButton.setVerticalAlignment(SwingConstants.TOP);
 		selectToggleButton.setToolTipText("Auswaehlen");
-		selectToggleButton.setActionCommand(GraphActionCommand.SELECT.name());
-		selectToggleButton.addActionListener(actionListener);
+		selectToggleButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				hauptPanel.select();
+			}
+		});
 		add(selectToggleButton);
 		addSeparator();
 		
@@ -47,24 +52,36 @@ public class VerticalToolbar extends JToolBar {
 		nodeToggleButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/node_32.png")));
 		nodeToggleButton.setVerticalAlignment(SwingConstants.TOP);
 		nodeToggleButton.setToolTipText("Knoten erstellen");
-		nodeToggleButton.setActionCommand(GraphActionCommand.NODE.name());
-		nodeToggleButton.addActionListener(actionListener);
+		nodeToggleButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hauptPanel.node();
+			}
+		});
 		add(nodeToggleButton);
 		addSeparator();
 
 		//---- edgeToggleButton ----
 		edgeToggleButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/edge_32.png")));
 		edgeToggleButton.setToolTipText("Kante erstellen");
-		edgeToggleButton.setActionCommand(GraphActionCommand.EDGE.name());
-		edgeToggleButton.addActionListener(actionListener);
+		edgeToggleButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hauptPanel.edge();
+			}
+		});
 		add(edgeToggleButton);
 		
 		//---- deleteButton ----
 		deleteButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/delete_32.png")));
 		deleteButton.setToolTipText("Knoten/Kante entfernen.");
 		deleteButton.setEnabled(false);
-		deleteButton.setActionCommand(GraphActionCommand.DELETE.name());
-		deleteButton.addActionListener(actionListener);
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hauptPanel.delete();
+			}
+		});
 		add(deleteButton);
 	}
 	

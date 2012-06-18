@@ -1,19 +1,17 @@
 package view;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-import command.GraphActionCommand;
-
-import control.GraphActionListener;
-
 @SuppressWarnings("serial")
 public class HorizontaleToolbar extends JToolBar {
 
-	private GraphActionListener actionListener;
+	private HauptPanel hauptPanel;
 	
 	private JButton emptyButton;
 	private JButton undoButton;
@@ -21,7 +19,7 @@ public class HorizontaleToolbar extends JToolBar {
 	private JButton checkButton;
 	
 	public HorizontaleToolbar(HauptPanel hauptPanel) {
-		actionListener = new GraphActionListener(hauptPanel);
+		this.hauptPanel = hauptPanel;
 		
 		setFloatable(false);
 		initComponents();
@@ -37,8 +35,12 @@ public class HorizontaleToolbar extends JToolBar {
 		//---- emptyButton ----
 		emptyButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/empty_32.png")));
 		emptyButton.setToolTipText("Leere Seite");
-		emptyButton.setActionCommand(GraphActionCommand.EMPTY.name());
-		emptyButton.addActionListener(actionListener);
+		emptyButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hauptPanel.empty();
+			}
+		});
 		add(emptyButton);
 		addSeparator();
 		
@@ -46,8 +48,15 @@ public class HorizontaleToolbar extends JToolBar {
 		undoButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/undo_32.png")));
 		undoButton.setToolTipText("Undo");
 		undoButton.setEnabled(false);
-		undoButton.setActionCommand(GraphActionCommand.UNDO.name());
-		undoButton.addActionListener(actionListener);
+		undoButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hauptPanel.restoreGraph();
+				
+				redoButton.setEnabled(true);
+				undoButton.setEnabled(false);
+			}
+		});
 		add(undoButton);
 		addSeparator();
 
@@ -55,8 +64,15 @@ public class HorizontaleToolbar extends JToolBar {
 		redoButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/redo_32.png")));
 		redoButton.setToolTipText("Redo");
 		redoButton.setEnabled(false);
-		redoButton.setActionCommand(GraphActionCommand.REDO.name());
-		redoButton.addActionListener(actionListener);
+		redoButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hauptPanel.restoreGraph();
+				
+				undoButton.setEnabled(true);
+				redoButton.setEnabled(false);
+			}
+		});
 		add(redoButton);
 		addSeparator();
 
@@ -64,27 +80,18 @@ public class HorizontaleToolbar extends JToolBar {
 		checkButton.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		checkButton.setIcon(new ImageIcon(getClass().getResource("/view/icon/check_32.png")));
 		checkButton.setToolTipText("Pruefen auf Eulerkreis.");
-		checkButton.setActionCommand(GraphActionCommand.CHECK.name());
-		checkButton.addActionListener(actionListener);
+		checkButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hauptPanel.check();
+			}
+		});
 		add(checkButton);
 	}
-	
-	
-	/**
-	 * Diese Methode aktiviert den "Redo"-Button und 
-	 * deaktiviert den "Undo"-Button.
-	 */
-	public void enableRedoButton() {
-		redoButton.setEnabled(true);
-		undoButton.setEnabled(false);
-	}
-	
-	/**
-	 * Diese Methode aktiviert den "Undo"-Button und 
-	 * deaktiviert den "Redo"-Button.
-	 */
+
+
 	public void enableUndoButton() {
 		undoButton.setEnabled(true);
-		redoButton.setEnabled(false);
 	}
+	
 }

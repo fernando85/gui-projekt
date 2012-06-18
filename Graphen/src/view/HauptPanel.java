@@ -52,21 +52,11 @@ public class HauptPanel extends JPanel {
 	}
 	
 	/**
-	 * Diese Methode wird aufgerufen, wenn der Undo-Button
+	 * Diese Methode wird aufgerufen, wenn der Undo-/Redo-Button
 	 * geklickt wurde.
 	 */
-	public void undo() {
+	public void restoreGraph() {
 		graphPanel.restoreGraph();
-		hToolbar.enableRedoButton();
-	}
-	
-	/**
-	 * Diese Methode wird aufgerufen, wenn der Redo-Button
-	 * geklickt wurde.
-	 */
-	public void redo() {
-		graphPanel.restoreGraph();
-		hToolbar.enableUndoButton();
 	}
 	
 	/**
