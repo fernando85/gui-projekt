@@ -182,7 +182,9 @@ public class GraphPanel extends JPanel {
 		// in die Gleichung y = mx + n einsetzen
 		 
 		double different = y - (m*x + n);
-		return (different >= -1 && different <= 1);
+		
+		// Die Abweichung vom -2 und 2 Pixel kommt von der Kantendicke: 2.0f
+		return (different >= -2 && different <= 2);
 	}
 
 	

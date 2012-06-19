@@ -40,20 +40,26 @@ public class HauptPanel extends JPanel {
 		graphPanel.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
+				// Speichern der (x,y)-Position beim Mausklick vorm Loslassen
 				int x = e.getX();
 				int y = e.getY();
 
+				// Wenn der Klickzustand vom Select-Button "an" ist,
 				if (vToolbar.isSelectButtonSelected()) {
+					// => dann selektiert das, was sich unter dem Mauszeiger befindet
 					graphPanel.select(x, y);
 				}
 
+				// Wenn ein Knoten selektiert ist,
 				if (graphPanel.getSelectedObject() instanceof Node) {
 					Node node = (Node) graphPanel.getSelectedObject();
 					
+					// => dann bekommt er eine neue Position
 					node.setX(x);
 					node.setY(y);
 					
-					repaint();
+					// Anschliessend den graphPanel neu zeichnen
+					graphPanel.repaint();
 				}
 			}
 		});
