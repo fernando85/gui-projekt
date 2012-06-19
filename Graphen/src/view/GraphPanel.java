@@ -233,7 +233,15 @@ public class GraphPanel extends JPanel {
 			graph.removeEdge((Edge) selectedObject);
 		}
 		
+		selectedObject = null;
+		
 		repaint();
+	}
+
+
+	public void dragNode(Node node) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
