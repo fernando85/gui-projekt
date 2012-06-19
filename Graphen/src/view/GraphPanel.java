@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -60,7 +61,13 @@ public class GraphPanel extends JPanel {
 		for (Edge edge : graph.getEdges()) {
 			Graphics2D g2d = (Graphics2D) g;
 			g2d.setStroke(new BasicStroke(2.0f));
-			g2d.setColor(basicColor);
+			
+			if (edge.equals(selectedObject)) {
+				g2d.setColor(selectedColor);
+			}
+			else {
+				g2d.setColor(basicColor);	
+			}
 			g2d.drawLine(edge.getNode1().getX(), edge.getNode1().getY(), 
 					edge.getNode2().getX(), edge.getNode2().getY());
 		}
@@ -147,20 +154,37 @@ public class GraphPanel extends JPanel {
 		selectedObject = graph.getNodeAtPosition(x, y);
 		if (selectedObject == null) {
 			selectedObject = graph.getEdge(x, y);
-			if (selectedObject != null) {
-				// TODO: Selektierer Knoten in GUI erkennbar machen 
-				// (z.B. durch andere Farbe oder durch dickere Raender)
-			}
+		}
 		
-			else {
-				selectedObject = graph.getEdge(x, y);
-				if (selectedObject != null) {
-					// TODO: Selektiere Kante in GUI erkennbar machen
-					// (z.B. durch andere Farbe oder durch dickere Raender)
+		if (selectedObject == null) {	// Es ist kein Knoten ausgewaehlt
+			for (Edge edge : graph.getEdges()) {
+				if (isEdgeClicked(x, y, edge)) {
+					selectedObject = edge;
+					break;
 				}
 			}
 		}
 	}
+	
+	private boolean isEdgeClicked(int x, int y, Edge edge) {
+		// Sonderfall (node1 == node2) muss nicht beachtet werden, 
+		// weil wir keine Schleife erlauben 
+		
+		// Hier wollen wir herausfinden, ob (x,y) auf der Kante liegt
+		Point a = new Point(edge.getNode1().getX(), edge.getNode1().getY());
+		Point b = new Point(edge.getNode2().getX(), edge.getNode2().getY());
+		// y = mx + n
+		
+		double m = (double) (b.y - a.y) / (double) (b.x - a.x);
+		double n = (double) a.y - (double) (m * a.x);
+		
+		// Nachdem m und n bekannt sind, koennen wir (x,y) auch 
+		// in die Gleichung y = mx + n einsetzen
+		 
+		double different = y - (m*x + n);
+		return (different >= -1 && different <= 1);
+	}
+
 	
 	
 	/**

@@ -165,7 +165,7 @@ public class Graph {
 		
 		return null;
 	}
-
+	
 	
 	public void restore() {
 		if (lastActions == null || lastActions.isEmpty()) {

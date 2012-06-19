@@ -9,8 +9,6 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
-import command.GraphActionCommand;
-
 @SuppressWarnings("serial")
 public class VerticalToolbar extends JToolBar {
 	
