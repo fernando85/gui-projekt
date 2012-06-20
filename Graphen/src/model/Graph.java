@@ -5,8 +5,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import command.HistoryCommand;
 import exception.EdgeAlreadyExistException;
+
+enum HistoryCommand {
+	ADD_NODE,
+	DELETE_NODE,
+	MOVE_NODE,
+	ADD_EDGE,
+	DELETE_EDGE
+}
 
 public class Graph {
 
@@ -46,6 +53,11 @@ public class Graph {
 		this.edges = edges;
 	}
 
+	/**
+	 * Diese Methode fuegt den eingegebenen Knoten in den
+	 * Graphen ein.
+	 * @param node Knoten, der in den Graphen eingefuegt wird.
+	 */
 	public void addNode(Node node) {
 		if (nodes.add(node)) {
 			lastActions.clear();
@@ -112,24 +124,6 @@ public class Graph {
 	
 	
 	/**
-	 * @param x x-Position von dem zu suchenden Knoten.
-	 * @param y y-Position von dem zu suchenden Knoten.
-	 * @return Ein Knoten in der Position {@code x} und {@code y}
-	 * wird zurueckgegeben.
-	 */
-	public Node getNode(int x, int y) {
-		for (Node node : nodes) {
-			//***********
-			if(node.getX()==x && node.getY() == y)
-				return node;
-			//***********
-			// TODO: Den Knoten finden, dessen GUI-Figur auf dem Punkt (x,y) liegt.
-		}
-		
-		return null;
-	}
-	
-	/**
 	 * Diese Methode ueberprueft, ob ein Knoten in der Position (x,y) existiert
 	 * und gibt diesen gegebenenfalls zurueck. Wenn kein Knoten in der Position
 	 * (x,y) existiert, wird {@code null} zurueckgegeben.
@@ -194,9 +188,6 @@ public class Graph {
 					}
 				}
 				break;
-			case MOVE_NODE:
-				// TODO
-				break;
 			case ADD_EDGE:
 				if (graphElement instanceof Edge) {
 					Edge edge = (Edge) graphElement;
@@ -215,10 +206,14 @@ public class Graph {
 					}
 				}
 				break;
+			case MOVE_NODE:
+				// TODO
+				break;
 			default:
 				break;
 			}
 		}
 		
 	}
+	
 }

@@ -17,11 +17,9 @@ public class SimpleFrame extends JFrame implements ActionListener {
 
 
 	public void showIt( int sizex, int sizey, int x, int y){
-
-
-	setSize(sizex, sizey);
-	setLocation(x, y);
-	setVisible(true);
+		setSize(sizex, sizey);
+		setLocation(x, y);
+		setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {

@@ -1,6 +1,5 @@
 package model;
 
-import command.HistoryCommand;
 
 /**
  * Diese Klasse speichert die Information ueber die letzte

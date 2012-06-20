@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+
 @SuppressWarnings("serial")
 public class HorizontaleToolbar extends JToolBar {
 
