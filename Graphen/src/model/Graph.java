@@ -81,6 +81,7 @@ public class Graph {
 	public void removeNode(Node node) {
 		Set<Edge> edgesToRemove = new HashSet<Edge>();
 		
+		// Kanten finden, die den eingegebenen Knoten mit einem anderen verbindet
 		for (Edge edge : edges) {
 			if (node.equals(edge.getNode1()) || node.equals(edge.getNode2())) {
 				edgesToRemove.add(edge);
@@ -195,9 +196,6 @@ public class Graph {
 						lastAction.setGraphElement(edge);						
 					}
 				}
-				break;
-			case MOVE_NODE:
-				// TODO
 				break;
 			default:
 				break;
