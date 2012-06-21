@@ -66,7 +66,7 @@ public class GraphPanel extends JPanel {
 				g2d.setColor(selectedColor);
 			}
 			else {
-				g2d.setColor(basicColor);	
+				g2d.setColor(edge.getColor());	
 			}
 			g2d.drawLine(edge.getNode1().getX(), edge.getNode1().getY(), 
 					edge.getNode2().getX(), edge.getNode2().getY());
@@ -141,8 +141,8 @@ public class GraphPanel extends JPanel {
 	 * Ueberpruefen eines Eulerkreises/-weges geklickt wurde.
 	 */
 	public void check() {
-		// TODO
-		System.out.println("check(): Not implemented yet!");
+		graph.Fleury();
+		repaint();
 	}
 	
 	
