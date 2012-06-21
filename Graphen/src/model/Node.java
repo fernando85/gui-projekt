@@ -1,5 +1,7 @@
 package model;
 
+import exception.NotEulerschException;
+
 
 
 /**
@@ -16,7 +18,7 @@ public class Node {
 	
 	private int x = 0;
 	private int y = 0;
-	
+	private int grad = 0;
 	
 	public Node() {
 		
@@ -74,6 +76,25 @@ public class Node {
 		if (y != other.y)
 			return false;
 		return true;
+	}
+	
+	public void checkGrad() throws NotEulerschException {
+		if(this.grad % 2 != 0)
+			throw new NotEulerschException();
+	}
+	
+	
+	
+	public int getGrad() {
+		return this.grad;
+	}
+	
+	public void setGrad() {
+		this.grad++;
+	}
+	
+	public void downGrad() {
+		this.grad--;
 	}
 	
 	
