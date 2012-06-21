@@ -76,8 +76,8 @@ public class HauptPanel extends JPanel {
 				if (vToolbar.isNodeButtonSelected()) {
 					graphPanel.createNode(x, y);
 					
-					// Der Graph hat jetzt mindestens einen Knoten
-					// => Aktiviert das Undo-Button
+					// Der Graph wurde veraendert => aktiviert
+					// den Undo-Button und deaktiviert Redo-Button
 					hToolbar.enableUndoButton();
 				
 					// Die selektierten Knoten fuer eine Kante
@@ -96,6 +96,10 @@ public class HauptPanel extends JPanel {
 						
 						if (graphPanel.getEdgeNode2() != null) {
 							graphPanel.createEdge();
+							
+							// Der Graph wurde veraendert => aktiviert
+							// den Undo-Button und deaktiviert Redo-Button
+							hToolbar.enableUndoButton();
 						}
 					}
 				}
@@ -191,7 +195,6 @@ public class HauptPanel extends JPanel {
 			vToolbar.deselectSelectToggleButton();
 			vToolbar.deselectNodeToggleButton();
 			
-			
 			// und der "Delete"-Button deaktiviert.
 			vToolbar.setEnableDeleteButton(false);
 		}
@@ -201,7 +204,13 @@ public class HauptPanel extends JPanel {
 
 	
 	public void delete() {
-		graphPanel.deleteSelectedObject();
+		if (graphPanel.getSelectedObject() != null) {
+			graphPanel.deleteSelectedObject();
+			
+			// Der Graph wurde veraendert => aktiviert
+			// den Undo-Button und deaktiviert Redo-Button
+			hToolbar.enableUndoButton();
+		}
 	}
 
 

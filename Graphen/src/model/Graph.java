@@ -1,10 +1,5 @@
 package model;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -152,21 +147,6 @@ public class Graph {
 			}
 		}
 
-		return null;
-	}
-	
-	
-	/**
-	 * @param x x-Position von der zu suchenden Kante.
-	 * @param y y-Position von der zu suchenden Kante.
-	 * @return Eine Kante in der Position {@code x} und {@code y}
-	 * wird zurueckgegeben.
-	 */
-	public Edge getEdge(int x, int y) {
-		for (Edge edge : edges) {
-			// TODO: Die Kante finden, deren GUI-Figur auf dem Punkt (x,y) liegt.
-		}
-		
 		return null;
 	}
 	

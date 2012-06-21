@@ -152,11 +152,11 @@ public class GraphPanel extends JPanel {
 	 */
 	public void select(int x, int y) {
 		selectedObject = graph.getNodeAtPosition(x, y);
-		if (selectedObject == null) {
-			selectedObject = graph.getEdge(x, y);
-		}
-		
-		if (selectedObject == null) {	// Es ist kein Knoten ausgewaehlt
+
+		// Wenn kein Knoten ausgewaehlt ist,
+		if (selectedObject == null) {	
+			// => dann iterieren ueber alle Kanten und finde
+			// eine Kante, die grad selektiert ist
 			for (Edge edge : graph.getEdges()) {
 				if (isEdgeClicked(x, y, edge)) {
 					selectedObject = edge;
@@ -224,10 +224,6 @@ public class GraphPanel extends JPanel {
 	
 	
 	public void deleteSelectedObject() {
-		if (selectedObject == null) {
-			return;
-		}
-		
 		if (selectedObject instanceof Node) {
 			graph.removeNode((Node) selectedObject);
 		}
@@ -240,10 +236,4 @@ public class GraphPanel extends JPanel {
 		repaint();
 	}
 
-
-	public void dragNode(Node node) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

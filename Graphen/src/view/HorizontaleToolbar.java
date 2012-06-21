@@ -93,6 +93,7 @@ public class HorizontaleToolbar extends JToolBar {
 
 	public void enableUndoButton() {
 		undoButton.setEnabled(true);
+		redoButton.setEnabled(false);
 	}
 	
 }
