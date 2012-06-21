@@ -1,11 +1,21 @@
 package model;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 import exception.EdgeAlreadyExistException;
+import exception.NotEulerschException;
+import exception.UnConnectedException;
 
 enum HistoryCommand {
 	ADD_NODE,
@@ -215,5 +225,81 @@ public class Graph {
 		}
 		
 	}
+	
+	public void checkConnected(Graph  g) throws  UnConnectedException{
+		if(!g.dfs())
+			throw new UnConnectedException();
+	}
+	
+	public void findNaigbours(Node n, ArrayList<Node> l1, ArrayList<Node> l2) {
+		
+		int zaehler = 0;
+		for(Edge edge : this.getEdges()) {
+			if(n == edge.getNode1()){
+				if(!l2.contains(edge.getNode2())){
+					l1.add(edge.getNode2());
+					l2.add(edge.getNode2());
+					zaehler++;
+				}
+				
+			}
+			if(n == edge.getNode2()){
+				if(!l2.contains(edge.getNode1())){
+					l1.add(edge.getNode1());
+					l2.add(edge.getNode1());
+					zaehler++;
+				}
+			}
+		}
+		if(zaehler == 0)
+			l1.remove(n);
+			
+	}
+	
+	public boolean dfs() {
+		Iterator<Node> e = nodes.iterator();
+		Node n = e.next();
+		
+		ArrayList<Node> visited1 = new ArrayList<Node>();
+		ArrayList<Node> visited2 = new ArrayList<Node>();
+		visited1.add(n);
+		visited2.add(n);
+		while(!visited1.isEmpty()){
+			Node n1 = visited1.get(visited1.size()-1);
+			this.findNaigbours(n1, visited1, visited2);
+		}
+		if(visited2.size() == this.edges.size())
+			return true;
+		else
+			return false;
+		
+	}
+	
+	
+	public void Fleury()  {
+		
+		try{
+			checkConnected(this);
+			for (Node node : this.getNodes() ) {
+				
+				node.checkGrad();
+			}
+
+			
+		
+		
+		}
+		catch (UnConnectedException e3) {
+			JOptionPane.showMessageDialog(null, e3.getMessage());
+		
+		} catch (NotEulerschException e1) {
+			JOptionPane.showMessageDialog(null, e1.getMessage());
+		}
+		
+		
+			
+	}
+	
+	
 	
 }
