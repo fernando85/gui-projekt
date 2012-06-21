@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+
 import exception.SameNodesException;
 
 
@@ -13,6 +15,7 @@ public class Edge {
 
 	private Node node1;
 	private Node node2;
+	private Color col = Color.black;
 	
 	
 	public Edge(Node node1, Node node2) throws SameNodesException {
@@ -21,7 +24,9 @@ public class Edge {
 		}
 		
 		this.node1 = node1;
+		this.node1.setGrad();//******************
 		this.node2 = node2;
+		this.node2.setGrad();//*************
 	}
 
 
@@ -81,6 +86,14 @@ public class Edge {
 		} else if (!node2.equals(other.node2))
 			return false;
 		return true;
+	}
+	
+	public void setColor() {
+		this.col = Color.red;
+	}
+	
+	public Color getColor() {
+		return this.col;
 	}
 	
 	
